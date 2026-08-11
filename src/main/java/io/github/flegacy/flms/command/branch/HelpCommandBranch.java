@@ -2,13 +2,12 @@ package io.github.flegacy.flms.command.branch;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import io.github.flegacy.flms.utils.TextUtils;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.CommandSender;
 
-import static io.github.flegacy.flms.utils.TextUtils.*;
+import static io.github.flegacy.flms.utils.TextConstants.*;
 
 public class HelpCommandBranch implements CommandBranch {
 

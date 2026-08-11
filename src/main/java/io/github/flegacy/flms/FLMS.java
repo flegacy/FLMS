@@ -14,6 +14,8 @@ public class FLMS extends JavaPlugin {
 
 	private static final String COMMAND_DESCRIPTION = "All-in-one command for the FLMS plugin.";
 
+	private ItemLibrary itemLibrary;
+
 	@Override
 	public void onEnable() {
 
@@ -27,6 +29,8 @@ public class FLMS extends JavaPlugin {
 
 		getServer().getPluginManager().registerEvents(PlayerJoinListener.getInstance(this), this);
 
+		itemLibrary = new ItemLibrary(this);
+
 		getLogger().info("Successfully loaded. Hello World!");
 
 	}
@@ -34,5 +38,9 @@ public class FLMS extends JavaPlugin {
 	@Override
 	public void onDisable() {
 		getLogger().info("Successfully disabled. Goodbye!");
+	}
+
+	public ItemLibrary getItemLibrary() {
+		return itemLibrary;
 	}
 }

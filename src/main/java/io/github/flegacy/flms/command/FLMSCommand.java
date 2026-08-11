@@ -6,6 +6,7 @@ import io.github.flegacy.flms.FLMS;
 import io.github.flegacy.flms.command.branch.CommandBranch;
 import io.github.flegacy.flms.command.branch.HelpCommandBranch;
 import io.github.flegacy.flms.command.branch.TestCommandBranch;
+import io.github.flegacy.flms.command.branch.WandCommandBranch;
 import io.github.flegacy.flms.utils.Permissions;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
@@ -30,8 +31,10 @@ public class FLMSCommand {
 	private FLMSCommand(FLMS plugin) {
 		branches = new ArrayList<>();
 
+		// Add command branches here
 		branches.add(new TestCommandBranch(plugin));
 		branches.add(new HelpCommandBranch());
+		branches.add(new WandCommandBranch(plugin));
 	}
 
 	public LiteralCommandNode<CommandSourceStack> getCommandNode() {
