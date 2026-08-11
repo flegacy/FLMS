@@ -30,7 +30,7 @@ public class FLMSCommand {
 	private FLMSCommand(FLMS plugin) {
 		branches = new ArrayList<>();
 
-		branches.add(new TestCommandBranch());
+		branches.add(new TestCommandBranch(plugin));
 		branches.add(new HelpCommandBranch());
 	}
 
@@ -49,4 +49,6 @@ public class FLMSCommand {
 			instance = new FLMSCommand(plugin);
 		return instance;
 	}
+
+
 }

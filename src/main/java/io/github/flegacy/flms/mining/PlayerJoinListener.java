@@ -48,9 +48,7 @@ public class PlayerJoinListener implements Listener {
 		player.removePotionEffect(PotionEffectType.MINING_FATIGUE);
 		player.addPotionEffect(haste);
 		player.addPotionEffect(fatigue);
-
-		AttributeModifier attackSpeedModifier = new AttributeModifier(attributeKey, -0.4, AttributeModifier.Operation.ADD_NUMBER);
-		player.getAttribute(Attribute.ATTACK_SPEED).addModifier(attackSpeedModifier);
+		// TODO fix attack speed
 	}
 
 	public static PlayerJoinListener getInstance(FLMS plugin) {
