@@ -1,0 +1,13 @@
+name: FLMS
+main: io.github.flegacy.flms.FLMS
+version: 1.0-SNAPSHOT
+
+authors: [ flegacy ]
+description: A Minecraft plugin for changing the way blocks are broken.
+website: https://www.minecraft.net
+
+api-version: '26.2'
+load: POSTWORLD
+prefix: FLMS
+
+# TODO permissions
