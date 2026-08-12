@@ -20,8 +20,10 @@ public abstract class FLMSInterface implements InventoryHolder {
 
 	private final Inventory inventory;
 	private final Map<Integer, InterfaceElement> elements;
+    private final FLMS plugin;
 
 	protected FLMSInterface(int size, @NotNull Component title, FLMS plugin) {
+        this.plugin = plugin;
 		this.inventory = Bukkit.createInventory(this, size, title);
 
 		elements = new HashMap<>();
@@ -53,6 +55,10 @@ public abstract class FLMSInterface implements InventoryHolder {
 	public void open(Player player) {
 		player.openInventory(inventory);
 	}
+
+    public FLMS getFLMSInstance() {
+        return plugin;
+    }
 
 
 
