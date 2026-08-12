@@ -1,0 +1,16 @@
+name: FLMS
+main: me.flegacy.flms.FLMS
+version: 1.0-SNAPSHOT
+api-version: 1.21.11
+load: POSTWORLD
+author: FLegacy
+depend: [ ProtocolLib ]
+prefix: FLMS
+description: Versatile plugin for configuring blocks in Minecraft.
+
+commands:
+  flms:
+    description: All-in-one command for FLMS.
+    permission: flms.admin
+    permission-message: "You don't have permission to use this command."
+    usage: "TODO add usage message"
