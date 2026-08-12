@@ -36,7 +36,7 @@ public class HelpCommandBranch implements CommandBranch {
 	}
 
 	private int sendMessage(CommandSourceStack source) {
-		CommandSender sender = source.getSender();
+		final CommandSender sender = source.getSender();
 		sender.sendMessage(MESSAGE);
 		return Command.SINGLE_SUCCESS;
 	}

@@ -38,7 +38,7 @@ public class FLMSCommand {
 	}
 
 	public LiteralCommandNode<CommandSourceStack> getCommandNode() {
-		LiteralArgumentBuilder<CommandSourceStack> root = Commands.literal(ROOT_LITERAL);
+		final LiteralArgumentBuilder<CommandSourceStack> root = Commands.literal(ROOT_LITERAL);
 		root.requires(sender -> sender.getSender().hasPermission(Permissions.COMMAND_PERMISSION));
 
 		for (CommandBranch branch: branches)

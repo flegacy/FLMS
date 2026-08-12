@@ -2,9 +2,8 @@ package io.github.flegacy.flms;
 
 import io.github.flegacy.flms.command.FLMSCommand;
 import io.github.flegacy.flms.mining.PlayerJoinListener;
-import io.papermc.paper.command.brigadier.CommandSourceStack;
+import io.github.flegacy.flms.ui.InterfaceListener;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -15,6 +14,7 @@ public class FLMS extends JavaPlugin {
 	private static final String COMMAND_DESCRIPTION = "All-in-one command for the FLMS plugin.";
 
 	private ItemLibrary itemLibrary;
+	private SoundLibrary soundLibrary;
 
 	@Override
 	public void onEnable() {
@@ -28,8 +28,10 @@ public class FLMS extends JavaPlugin {
 				);
 
 		getServer().getPluginManager().registerEvents(PlayerJoinListener.getInstance(this), this);
+		getServer().getPluginManager().registerEvents(InterfaceListener.getInstance(), this);
 
 		itemLibrary = new ItemLibrary(this);
+		soundLibrary = new SoundLibrary(this);
 
 		getLogger().info("Successfully loaded. Hello World!");
 
@@ -42,5 +44,9 @@ public class FLMS extends JavaPlugin {
 
 	public ItemLibrary getItemLibrary() {
 		return itemLibrary;
+	}
+
+	public SoundLibrary getSoundLibrary() {
+		return soundLibrary;
 	}
 }

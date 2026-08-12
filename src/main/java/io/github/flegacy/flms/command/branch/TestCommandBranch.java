@@ -3,12 +3,19 @@ package io.github.flegacy.flms.command.branch;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import io.github.flegacy.flms.FLMS;
+import io.github.flegacy.flms.ui.FLMSInterface;
+import io.github.flegacy.flms.ui.element.ClickableElement;
+import io.github.flegacy.flms.ui.element.DisplayElement;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
+import net.kyori.adventure.text.Component;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -44,27 +51,34 @@ public class TestCommandBranch implements CommandBranch {
 	}
 
 	private int executeTest(CommandSourceStack source) {
-		source.getSender().sendMessage("Hey! You just used the testing command.");
+		if (!(source.getSender() instanceof Player player))
+			return 0;
+
+		TestInventory testInv = new TestInventory(plugin);
+		testInv.open(player);
+
 		return Command.SINGLE_SUCCESS;
 	}
 
+	public class TestInventory extends FLMSInterface {
+
+		protected TestInventory(FLMS plugin) {
+			super(27, Component.text("Test Interface"), plugin);
+			ClickableElement clickable = new ClickableElement() {
+				@Override
+				public void execute(InventoryClickEvent event) {
+					event.getWhoClicked().sendMessage("Hey there!");
+				}
+
+				@Override
+				public ItemStack getDisplayItem() {
+					return new ItemStack(Material.DIAMOND_SWORD);
+				}
+			};
+			setElement(13, clickable);
+			setElement(14, new DisplayElement(new ItemStack(Material.STONE_PICKAXE)));
+		}
+	}
 
 
-	private final PotionEffect haste = new PotionEffect(
-			PotionEffectType.HASTE,
-			PotionEffect.INFINITE_DURATION,
-			1,
-			true,
-			false,
-			false
-	);
-
-	private final PotionEffect fatigue = new PotionEffect(
-			PotionEffectType.MINING_FATIGUE,
-			PotionEffect.INFINITE_DURATION,
-			2,
-			true,
-			false,
-			false
-	);
 }

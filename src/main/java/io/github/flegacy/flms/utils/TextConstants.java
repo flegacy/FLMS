@@ -34,15 +34,15 @@ public class TextConstants {
 	}
 
 	public static List<Component> messageList(String... msgs) {
-		List<Component> list = new ArrayList<>();
+		final List<Component> list = new ArrayList<>();
 		for (String msg: msgs)
 			list.add(miniMessage(msg));
 		return list;
 	}
 
 	public static String formatEnum(Enum<?> enumToFormat) {
-		String[] words = enumToFormat.toString().split("_");
-		StringBuilder builder = new StringBuilder();
+		final String[] words = enumToFormat.toString().split("_");
+		final StringBuilder builder = new StringBuilder();
 		for (String word: words) {
 			builder.append(word.charAt(0));
 			builder.append(word.substring(1));
