@@ -10,4 +10,11 @@ api-version: '26.2'
 load: POSTWORLD
 prefix: FLMS
 
+dependencies:
+  server:
+    ProtocolLib:
+      load: BEFORE
+      required: true
+      join-classpath: true
+
 # TODO permissions
