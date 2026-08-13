@@ -22,6 +22,7 @@ public class TextConstants {
 	public static final String ERROR_COMMAND_CONSOLE = "You must be in-game to use this command.";
 
 	public static final String ERROR_INVENTORY_FULL = "Your inventory is too full to do this!";
+	public static final String ERROR_EMPTY_HAND = "You need to hold an item to do this.";
 
 
 	/**

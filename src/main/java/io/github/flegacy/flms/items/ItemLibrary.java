@@ -1,8 +1,7 @@
-package io.github.flegacy.flms;
+package io.github.flegacy.flms.items;
 
-import io.github.flegacy.flms.utils.ItemStackBuilder;
+import io.github.flegacy.flms.FLMS;
 import io.github.flegacy.flms.utils.TextConstants;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
@@ -18,6 +17,10 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 
 public class ItemLibrary {
+
+	private static ItemLibrary instance;
+	private final FLMSEnchanter enchanter;
+
     private static final String FLMS_WAND_TAG = "flms_wand";
 
     private final ItemStack wand;
@@ -30,11 +33,17 @@ public class ItemLibrary {
     private final ItemStack regionConfigIcon;
 	private final ItemStack effectConfigIcon;
 
-    private final NamespacedKey flmsItemKey;
+    protected final NamespacedKey flmsItemKey;
+	protected final NamespacedKey enchantKey;
 
-    ItemLibrary(FLMS plugin) {
+    public ItemLibrary(FLMS plugin) {
+		if (instance != null)
+			throw new IllegalStateException("There can only be one ItemLibrary instance.");
+		instance = this;
+		enchanter = new FLMSEnchanter(this);
 
         flmsItemKey = new NamespacedKey(plugin, "flms_item");
+		enchantKey = new NamespacedKey(plugin, "flms_efficiency");
 
         wand = new ItemStack(Material.GOLDEN_AXE);
         final ItemMeta wandMeta = wand.getItemMeta();
@@ -165,5 +174,9 @@ public class ItemLibrary {
 
 	public ItemStack getEffectConfigIcon() {
 		return effectConfigIcon.clone();
+	}
+
+	public FLMSEnchanter getEnchanter() {
+		return enchanter;
 	}
 }

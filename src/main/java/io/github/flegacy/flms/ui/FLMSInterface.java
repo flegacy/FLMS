@@ -55,11 +55,4 @@ public abstract class FLMSInterface implements InventoryHolder {
 	public void open(Player player) {
 		player.openInventory(inventory);
 	}
-
-    public FLMS getFLMSInstance() {
-        return plugin;
-    }
-
-
-
 }

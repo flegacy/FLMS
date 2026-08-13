@@ -1,8 +1,9 @@
-package io.github.flegacy.flms.utils;
+package io.github.flegacy.flms.items;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.github.flegacy.flms.utils.TextConstants;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemFlag;

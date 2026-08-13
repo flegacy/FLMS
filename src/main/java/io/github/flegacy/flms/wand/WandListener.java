@@ -2,6 +2,7 @@ package io.github.flegacy.flms.wand;
 
 import io.github.flegacy.flms.FLMS;
 import io.github.flegacy.flms.utils.Permissions;
+import io.github.flegacy.flms.utils.SoundPlayer;
 import io.github.flegacy.flms.wand.ui.WandMenu;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -29,7 +30,7 @@ public class WandListener implements Listener {
 			return;
 
 		if (event.getAction() == Action.RIGHT_CLICK_AIR) {
-			plugin.getSoundLibrary().playWandOpenSound(player);
+			SoundPlayer.playWandOpenSound(player, plugin);
 			wandMenu.open(player);
 		}
 

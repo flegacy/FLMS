@@ -1,31 +1,32 @@
-package io.github.flegacy.flms;
+package io.github.flegacy.flms.utils;
 
+import io.github.flegacy.flms.FLMS;
 import org.bukkit.Sound;
 import org.bukkit.SoundCategory;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-public class SoundLibrary {
+public class SoundPlayer {
 
-	private final FLMS plugin;
+	private SoundPlayer() {}
 
-	SoundLibrary(FLMS plugin) {
-		this.plugin = plugin;
-	}
-
-	public void playErrorSound(Player player) {
+	public static void playErrorSound(Player player) {
 		player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_DIDGERIDOO, SoundCategory.UI, 1, 0.5f);
 	}
 
-	public void playItemPickupSound(Player player) {
+	public static void playItemPickupSound(Player player) {
 		player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, SoundCategory.UI, 1, 1);
 	}
 
-    public void playButtonClickSound(Player player) {
+    public static void playButtonClickSound(Player player) {
         player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, SoundCategory.UI, 1, 1);
     }
 
-	public void playWandOpenSound(Player player) {
+	public static void playEnchantSound(Player player) {
+		player.playSound(player.getLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.UI, 1, 1);
+	}
+
+	public static void playWandOpenSound(Player player, FLMS plugin) {
 		new BukkitRunnable() {
 			int pitch = 0;
 			@Override

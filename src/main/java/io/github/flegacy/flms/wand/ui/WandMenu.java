@@ -1,7 +1,6 @@
 package io.github.flegacy.flms.wand.ui;
 
-import io.github.flegacy.flms.ItemLibrary;
-import org.jetbrains.annotations.NotNull;
+import io.github.flegacy.flms.items.ItemLibrary;
 
 import io.github.flegacy.flms.FLMS;
 import io.github.flegacy.flms.ui.FLMSInterface;
