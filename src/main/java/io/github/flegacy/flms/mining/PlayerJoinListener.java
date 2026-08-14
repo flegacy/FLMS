@@ -1,4 +1,4 @@
-package io.github.flegacy.flms.mining.listener;
+package io.github.flegacy.flms.mining;
 
 import io.github.flegacy.flms.FLMS;
 import org.bukkit.NamespacedKey;

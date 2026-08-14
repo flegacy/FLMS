@@ -31,7 +31,7 @@ public class EnchantCommandBranch implements CommandBranch {
 				.then(Commands.literal("remove")
 						.executes(ctx -> attemptRemove(ctx.getSource())))
 				.then(Commands.literal("set")
-						.then(Commands.argument("level", IntegerArgumentType.integer())
+						.then(Commands.argument("level", IntegerArgumentType.integer(1, 255))
 								.then(Commands.argument("visibility", BoolArgumentType.bool())
 										.executes(ctx -> attemptSet(
 												ctx.getSource(),
