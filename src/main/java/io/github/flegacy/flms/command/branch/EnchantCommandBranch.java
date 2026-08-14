@@ -10,10 +10,7 @@ import io.github.flegacy.flms.utils.SoundPlayer;
 import io.github.flegacy.flms.utils.TextConstants;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
-import io.papermc.paper.command.brigadier.argument.ArgumentTypes;
 import net.kyori.adventure.text.Component;
-import org.bukkit.Bukkit;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -46,9 +43,9 @@ public class EnchantCommandBranch implements CommandBranch {
 	private int attemptGet(CommandSourceStack source) {
 		if (!isEligible(source))
 			return 0;
-		final ItemStack heldItem = ((Player) source.getSender()).getInventory().getItemInMainHand();
-		final int efficiencyLevel = enchanter.getEnchantLevel(heldItem);
-		final Component msg;
+		ItemStack heldItem = ((Player) source.getSender()).getInventory().getItemInMainHand();
+		int efficiencyLevel = enchanter.getEnchantLevel(heldItem);
+		Component msg;
 
 		if (efficiencyLevel == 0)
 			msg = TextConstants.prefixedMessage("Your held item isn't enchanted.");
@@ -63,8 +60,8 @@ public class EnchantCommandBranch implements CommandBranch {
 	private int attemptRemove(CommandSourceStack source) {
 		if (!isEligible(source))
 			return 0;
-		final Player player = (Player) source.getSender();
-		final ItemStack heldItem = player.getInventory().getItemInMainHand();
+		Player player = (Player) source.getSender();
+		ItemStack heldItem = player.getInventory().getItemInMainHand();
 		if (!enchanter.isEnchanted(heldItem)) {
 			player.sendMessage(TextConstants.prefixedMessage("This item isn't enchanted."));
 			SoundPlayer.playErrorSound(player);
@@ -79,13 +76,13 @@ public class EnchantCommandBranch implements CommandBranch {
 	private int attemptSet(CommandSourceStack source, int level, boolean visibility) {
 		if (!isEligible(source))
 			return 0;
-		final Player player = (Player) source.getSender();
-		final ItemStack heldItem = player.getInventory().getItemInMainHand();
-        final short shortLevel;
-        if (level > Short.MAX_VALUE)
-            shortLevel = Short.MAX_VALUE;
-        else
-            shortLevel = (short) level;
+		Player player = (Player) source.getSender();
+		ItemStack heldItem = player.getInventory().getItemInMainHand();
+		short shortLevel;
+		if (level > Short.MAX_VALUE)
+			shortLevel = Short.MAX_VALUE;
+		else
+			shortLevel = (short) level;
 
 		if (shortLevel < 0) {
 			player.sendMessage(TextConstants.errorMessage("You can't enchant an item with negative efficiency."));
@@ -93,19 +90,18 @@ public class EnchantCommandBranch implements CommandBranch {
 			return 0;
 		}
 
-		final String visibilityInfo = (visibility)
+		String visibilityInfo = (visibility)
 				? "and it's showing!"
 				: "but it's hidden...";
 
 		enchanter.enchantEfficiency(heldItem, shortLevel, visibility);
 		player.sendMessage(TextConstants.prefixedMessage(
 				"You applied efficiency " + TextConstants.FLMS_YELLOW + shortLevel + TextConstants.FLMS_LIGHT_YELLOW
-				+ ", " + visibilityInfo
+						+ ", " + visibilityInfo
 		));
 		SoundPlayer.playEnchantSound(player);
 		return Command.SINGLE_SUCCESS;
 	}
-
 
 
 	private boolean isEligible(CommandSourceStack source) {

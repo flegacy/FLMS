@@ -1,6 +1,5 @@
 package io.github.flegacy.flms.ui;
 
-import io.github.flegacy.flms.FLMS;
 import io.github.flegacy.flms.ui.element.ClickableElement;
 import io.github.flegacy.flms.ui.element.InterfaceElement;
 import org.bukkit.event.EventHandler;
@@ -17,11 +16,11 @@ public class InterfaceListener implements Listener {
 	public void onInventoryClick(InventoryClickEvent event) {
 		if (event.getClickedInventory() == null)
 			return;
-		if (!(event.getClickedInventory().getHolder(false) instanceof final FLMSInterface gui))
+		if (!(event.getClickedInventory().getHolder(false) instanceof FLMSInterface gui))
 			return;
 		event.setCancelled(true);
-		final int clickedSlot = event.getRawSlot();
-		final InterfaceElement clickedElement = gui.getElement(clickedSlot);
+		int clickedSlot = event.getRawSlot();
+		InterfaceElement clickedElement = gui.getElement(clickedSlot);
 		if (clickedElement == null)
 			return;
 		if (!(clickedElement instanceof ClickableElement clickable))

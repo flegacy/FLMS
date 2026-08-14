@@ -28,28 +28,29 @@ public class TextConstants {
 	/**
 	 * Private constructor
 	 */
-	private TextConstants() {}
+	private TextConstants() {
+	}
 
 	public static Component miniMessage(String msg) {
 		return MiniMessage.miniMessage().deserialize(msg);
 	}
 
 	public static List<Component> messageList(String... msgs) {
-		final List<Component> list = new ArrayList<>();
-		for (String msg: msgs)
+		List<Component> list = new ArrayList<>();
+		for (String msg : msgs)
 			list.add(miniMessage(msg));
 		return list;
 	}
 
 	public static String formatEnum(Enum<?> enumToFormat) {
-		final String[] words = enumToFormat.toString().split("_");
-		final StringBuilder builder = new StringBuilder();
-		for (String word: words) {
+		String[] words = enumToFormat.toString().split("_");
+		StringBuilder builder = new StringBuilder();
+		for (String word : words) {
 			builder.append(word.charAt(0));
 			builder.append(word.substring(1));
 			builder.append(" ");
 		}
-		return builder.substring(0, builder.length()-1);
+		return builder.substring(0, builder.length() - 1);
 	}
 
 	public static Component prefixedMessage(String msg) {

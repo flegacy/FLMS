@@ -36,8 +36,7 @@ public class WandCommandBranch implements CommandBranch {
 			player.sendMessage(TextConstants.prefixedMessage("Right click with the wand to use it!"));
 			SoundPlayer.playItemPickupSound(player);
 			return Command.SINGLE_SUCCESS;
-		}
-		else {
+		} else {
 			player.sendMessage(TextConstants.errorMessage(TextConstants.ERROR_INVENTORY_FULL));
 			SoundPlayer.playErrorSound(player);
 			return 0;

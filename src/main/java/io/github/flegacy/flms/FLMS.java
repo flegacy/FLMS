@@ -1,21 +1,17 @@
 package io.github.flegacy.flms;
 
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
 import io.github.flegacy.flms.command.FLMSCommand;
 import io.github.flegacy.flms.data.ConfigurationValues;
 import io.github.flegacy.flms.items.ItemLibrary;
 import io.github.flegacy.flms.mining.PlayerJoinListener;
 import io.github.flegacy.flms.registry.FLMSRegistry;
 import io.github.flegacy.flms.ui.InterfaceListener;
-import io.github.flegacy.flms.utils.SoundPlayer;
 import io.github.flegacy.flms.wand.WandListener;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.ProtocolManager;
-
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -27,8 +23,8 @@ public class FLMS extends JavaPlugin {
 
 	private ItemLibrary itemLibrary;
 	private FLMSRegistry registry;
-    private ProtocolManager protocolManager;
-    private ConfigurationValues configurationValues;
+	private ProtocolManager protocolManager;
+	private ConfigurationValues configurationValues;
 
 	@Override
 	public void onEnable() {
@@ -41,12 +37,12 @@ public class FLMS extends JavaPlugin {
 			}
 		}
 
-        saveResource("config.yml", false);
-        saveDefaultConfig();
+		saveResource("config.yml", false);
+		saveDefaultConfig();
 
-        configurationValues = new ConfigurationValues(this);
+		configurationValues = new ConfigurationValues(this);
 		itemLibrary = new ItemLibrary(this);
-        protocolManager = ProtocolLibrary.getProtocolManager();
+		protocolManager = ProtocolLibrary.getProtocolManager();
 		registry = new FLMSRegistry();
 
 		getLifecycleManager()
@@ -74,13 +70,13 @@ public class FLMS extends JavaPlugin {
 		return itemLibrary;
 	}
 
-    public ProtocolManager getProtocolManager() {
-        return protocolManager;
-    }
+	public ProtocolManager getProtocolManager() {
+		return protocolManager;
+	}
 
-    public ConfigurationValues getConfigValues() {
-        return configurationValues;
-    }
+	public ConfigurationValues getConfigValues() {
+		return configurationValues;
+	}
 
 	public FLMSRegistry getRegistry() {
 		return registry;

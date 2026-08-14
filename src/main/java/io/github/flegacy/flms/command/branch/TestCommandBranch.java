@@ -10,17 +10,10 @@ import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.attribute.Attribute;
-import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
-import java.awt.*;
-import java.sql.Array;
 import java.util.UUID;
 
 /**
@@ -71,7 +64,7 @@ public class TestCommandBranch implements CommandBranch {
 				}
 
 				@Override
-				public ItemStack getDisplayItem() {
+				public ItemStack displayItem() {
 					return new ItemStack(Material.DIAMOND_SWORD);
 				}
 			};

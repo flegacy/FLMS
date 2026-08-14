@@ -8,7 +8,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -20,15 +19,15 @@ public abstract class FLMSInterface implements InventoryHolder {
 
 	private final Inventory inventory;
 	private final Map<Integer, InterfaceElement> elements;
-    private final FLMS plugin;
+	private final FLMS plugin;
 
 	protected FLMSInterface(int size, @NotNull Component title, FLMS plugin) {
-        this.plugin = plugin;
+		this.plugin = plugin;
 		this.inventory = Bukkit.createInventory(this, size, title);
 
 		elements = new HashMap<>();
 
-		final DisplayElement filler = new DisplayElement(plugin.getItemLibrary().getEmptyGlass());
+		DisplayElement filler = new DisplayElement(plugin.getItemLibrary().getEmptyGlass());
 		for (int i = 0; i < size; i++) {
 			setElement(i, filler);
 
@@ -39,7 +38,7 @@ public abstract class FLMSInterface implements InventoryHolder {
 		if (slot < 0 || slot >= inventory.getSize())
 			throw new IndexOutOfBoundsException("Slot " + slot + " is out of bounds for length " + inventory.getSize());
 		elements.put(slot, element);
-		inventory.setItem(slot, element.getDisplayItem());
+		inventory.setItem(slot, element.displayItem());
 	}
 
 	@Nullable

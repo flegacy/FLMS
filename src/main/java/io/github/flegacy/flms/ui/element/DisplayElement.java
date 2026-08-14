@@ -2,16 +2,10 @@ package io.github.flegacy.flms.ui.element;
 
 import org.bukkit.inventory.ItemStack;
 
-public class DisplayElement implements InterfaceElement {
-
-	private final ItemStack displayItem;
-
-	public DisplayElement(ItemStack displayItem) {
-		this.displayItem = displayItem;
-	}
+public record DisplayElement(ItemStack displayItem) implements InterfaceElement {
 
 	@Override
-	public ItemStack getDisplayItem() {
+	public ItemStack displayItem() {
 		return displayItem.clone();
 	}
 }
