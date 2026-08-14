@@ -5,11 +5,15 @@ import com.comphenix.protocol.ProtocolManager;
 import io.github.flegacy.flms.command.FLMSCommand;
 import io.github.flegacy.flms.data.ConfigurationValues;
 import io.github.flegacy.flms.items.ItemLibrary;
-import io.github.flegacy.flms.mining.PlayerJoinListener;
+import io.github.flegacy.flms.mining.MineManager;
+import io.github.flegacy.flms.mining.listener.MineListener;
+import io.github.flegacy.flms.mining.listener.PlayerJoinListener;
+import io.github.flegacy.flms.mining.listener.WorldProtectionListener;
 import io.github.flegacy.flms.registry.FLMSRegistry;
 import io.github.flegacy.flms.ui.InterfaceListener;
 import io.github.flegacy.flms.wand.WandListener;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
@@ -25,6 +29,7 @@ public class FLMS extends JavaPlugin {
 	private FLMSRegistry registry;
 	private ProtocolManager protocolManager;
 	private ConfigurationValues configurationValues;
+	private MineManager mineManager;
 
 	@Override
 	public void onEnable() {
@@ -44,6 +49,7 @@ public class FLMS extends JavaPlugin {
 		itemLibrary = new ItemLibrary(this);
 		protocolManager = ProtocolLibrary.getProtocolManager();
 		registry = new FLMSRegistry();
+		mineManager = new MineManager(this);
 
 		getLifecycleManager()
 				.registerEventHandler(
@@ -53,9 +59,12 @@ public class FLMS extends JavaPlugin {
 										FLMSCommand.getInstance(this).getCommandNode(), COMMAND_DESCRIPTION)
 				);
 
-		getServer().getPluginManager().registerEvents(PlayerJoinListener.getInstance(this), this);
-		getServer().getPluginManager().registerEvents(InterfaceListener.getInstance(), this);
-		getServer().getPluginManager().registerEvents(WandListener.getInstance(this), this);
+		PluginManager manager = getServer().getPluginManager();
+		manager.registerEvents(WorldProtectionListener.getInstance(this), this);
+		manager.registerEvents(PlayerJoinListener.getInstance(this), this);
+		manager.registerEvents(InterfaceListener.getInstance(), this);
+		manager.registerEvents(WandListener.getInstance(this), this);
+		manager.registerEvents(MineListener.getInstance(this), this);
 
 		getLogger().info("Successfully loaded. Hello World!");
 	}
@@ -80,6 +89,10 @@ public class FLMS extends JavaPlugin {
 
 	public FLMSRegistry getRegistry() {
 		return registry;
+	}
+
+	public MineManager getMineManager() {
+		return mineManager;
 	}
 
 }

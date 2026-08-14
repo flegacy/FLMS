@@ -33,7 +33,7 @@ public class ConfigurationValues {
 		for (String key : config.getKeys(false)) {
 			Key match = Key.fromString(key);
 			if (match == null) {
-				plugin.getLogger().warning("The config option '" + key + " was found in the config, but is invalid.");
+				plugin.getLogger().warning("The config option '" + key + "' was found in the config, but is invalid.");
 				continue;
 			}
 			var value = config.getObject(key, match.valueType);
@@ -75,10 +75,8 @@ public class ConfigurationValues {
 		ALLOW_VANILLA_EFFICIENCY_ENCHANTMENT("allow_vanilla_efficiency_enchantment", Boolean.class),
 		ALLOW_VANILLA_GRINDSTONE_USAGE("allow_vanilla_grindstone_usage", Boolean.class),
 		ALLOW_VANILLA_ANVIL_USAGE("allow_vanilla_anvil_usage", Boolean.class),
-		DYNAMIC_SPEED_CALCULATION("dynamic_speed_calculation", Boolean.class),
 		USE_ROMAN_NUMERALS("use_roman_numerals", Boolean.class),
 		BLOCK_BREAKING_PARTICLES("block_breaking_particles", Boolean.class),
-		REPETITIVE_BLOCK_BREAK_DELAY("repetitive_block_break_delay", Boolean.class),
 		ENCHANT_FOR_MESSAGE("enchant_for_message", String.class),
 		HASTE_EFFECT_RECEIVE_MESSAGE("haste_effect_recieve_message", String.class),
 		FATIGUE_EFFECT_RECEIVE_MESSAGE("fatigue_effect_recieve_message", String.class),

@@ -1,7 +1,7 @@
-package io.github.flegacy.flms.mining;
+package io.github.flegacy.flms.mining.listener;
 
 import io.github.flegacy.flms.FLMS;
-import io.github.flegacy.flms.data.ConfigurationValues;
+import io.github.flegacy.flms.registry.RegisteredBlock;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -10,20 +10,20 @@ import org.bukkit.event.block.BlockBreakEvent;
 public class WorldProtectionListener implements Listener {
 	private static WorldProtectionListener instance;
 
-	private final ConfigurationValues config;
+	private final FLMS plugin;
 
 	private WorldProtectionListener(FLMS plugin) {
-		config = plugin.getConfigValues();
+		this.plugin = plugin;
 	}
 
 	@EventHandler
 	public void onVanillaBlockBreak(BlockBreakEvent event) {
 		// TODO enable compatibility with other listeners later instead of just stopping the event altogether.
-		Material blockType = event.getBlock().getType();
-
+		// TODO integrate crops
+		event.setCancelled(true);
 	}
 
-	private static WorldProtectionListener getInstance(FLMS plugin) {
+	public static WorldProtectionListener getInstance(FLMS plugin) {
 		if (instance == null)
 			instance = new WorldProtectionListener(plugin);
 		return instance;

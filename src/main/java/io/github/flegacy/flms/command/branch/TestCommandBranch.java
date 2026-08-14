@@ -3,11 +3,13 @@ package io.github.flegacy.flms.command.branch;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import io.github.flegacy.flms.FLMS;
+import io.github.flegacy.flms.registry.RegisteredBlock;
 import io.github.flegacy.flms.ui.FLMSInterface;
 import io.github.flegacy.flms.ui.element.ClickableElement;
 import io.github.flegacy.flms.ui.element.DisplayElement;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
+import jdk.jfr.Registered;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -47,31 +49,9 @@ public class TestCommandBranch implements CommandBranch {
 		if (!(source.getSender() instanceof Player player))
 			return 0;
 
-		TestInventory testInv = new TestInventory(plugin);
-		testInv.open(player);
+		RegisteredBlock testBlock = new RegisteredBlock(Material.GRASS_BLOCK);
+		plugin.getRegistry().register(testBlock);
 
 		return Command.SINGLE_SUCCESS;
 	}
-
-	public class TestInventory extends FLMSInterface {
-
-		protected TestInventory(FLMS plugin) {
-			super(27, Component.text("Test Interface"), plugin);
-			ClickableElement clickable = new ClickableElement() {
-				@Override
-				public void execute(InventoryClickEvent event) {
-					event.getWhoClicked().sendMessage("Hey there!");
-				}
-
-				@Override
-				public ItemStack displayItem() {
-					return new ItemStack(Material.DIAMOND_SWORD);
-				}
-			};
-			setElement(13, clickable);
-			setElement(14, new DisplayElement(new ItemStack(Material.STONE_PICKAXE)));
-		}
-	}
-
-
 }

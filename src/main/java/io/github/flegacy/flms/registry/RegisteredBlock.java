@@ -12,6 +12,8 @@ public class RegisteredBlock {
 	// TODO drops, xp, post break form
 
 	public RegisteredBlock(Material type) {
+		if (!type.isBlock() || type.isAir())
+			throw new IllegalStateException("Material must be a non-air block.");
 		this.type = type;
 		hardness = 0;
 		name = TextConstants.formatEnum(type);

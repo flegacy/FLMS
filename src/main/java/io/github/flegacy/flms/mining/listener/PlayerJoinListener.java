@@ -1,4 +1,4 @@
-package io.github.flegacy.flms.mining;
+package io.github.flegacy.flms.mining.listener;
 
 import io.github.flegacy.flms.FLMS;
 import org.bukkit.NamespacedKey;
@@ -30,10 +30,10 @@ public class PlayerJoinListener implements Listener {
 			false
 	);
 
-	private final NamespacedKey attributeKey;
+	private final FLMS plugin;
 
 	private PlayerJoinListener(FLMS plugin) {
-		attributeKey = new NamespacedKey(plugin, "flms_attack_speed_offset");
+		this.plugin = plugin;
 	}
 
 	@EventHandler

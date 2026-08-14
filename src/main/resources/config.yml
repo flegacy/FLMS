@@ -9,8 +9,6 @@ allow_vanilla_efficiency_enchantment: true
 allow_vanilla_grindstone_usage: true
 allow_vanilla_anvil_usage: true
 
-dynamic_speed_calculation: false
-
 # FLMS Message CONFIGURATION
 
 use_roman_numerals: false
@@ -23,5 +21,4 @@ block_break_denial_message: "<red>You can't destroy this block."
 block_break_denial_location: 'chat'
 
 block_breaking_particles: true
-repetitive_block_break_delay: true
 
