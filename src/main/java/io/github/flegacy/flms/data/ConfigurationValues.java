@@ -1,15 +1,10 @@
 package io.github.flegacy.flms.data;
 
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
 
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
 import org.jspecify.annotations.Nullable;
-
-import com.comphenix.protocol.wrappers.BukkitConverters;
 
 import io.github.flegacy.flms.FLMS;
 
@@ -61,17 +56,16 @@ public class ConfigurationValues {
         return !errors;
     }
 
-    @Nullable
     public boolean getBoolean(Key key) {
         if (key.valueType != Boolean.class)
-            throw new IllegalArgumentException(key.toString() + " does not return a boolean");
+            throw new IllegalArgumentException(key + " does not return a boolean");
         return (boolean) configurationOptions.get(key);
     }
 
     @Nullable
     public String getString(Key key) {
         if (key.valueType != String.class)
-            throw new IllegalArgumentException(key.toString() + " does not return a String");
+            throw new IllegalArgumentException(key + " does not return a String");
         return (String) configurationOptions.get(key);
     }
 
@@ -87,8 +81,8 @@ public class ConfigurationValues {
         BLOCK_BREAKING_PARTICLES("block_breaking_particles", Boolean.class),
         REPETITIVE_BLOCK_BREAK_DELAY("repetitive_block_break_delay", Boolean.class),
         ENCHANT_FOR_MESSAGE("enchant_for_message", String.class),
-        HASTE_EFFECT_RECIEVE_MESSAGE("haste_effect_recieve_message", String.class),
-        FATIGUE_EFFECT_RECIEVE_MESSAGE("fatigue_effect_recieve_message", String.class),
+        HASTE_EFFECT_RECEIVE_MESSAGE("haste_effect_recieve_message", String.class),
+        FATIGUE_EFFECT_RECEIVE_MESSAGE("fatigue_effect_recieve_message", String.class),
         BLOCK_BREAK_DENIAL_MESSAGE("block_break_denial_message", String.class),
         BLOCK_BREAK_DENIAL_LOCATION("block_break_denial_location", String.class);
 

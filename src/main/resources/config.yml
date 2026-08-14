@@ -16,11 +16,12 @@ dynamic_speed_calculation: false
 use_roman_numerals: false
 # Inform of minimessage format and silent option in command
 enchant_for_message: "<gray><i>Your item was enchanted with Efficiency <efficiency>."
-haste_effect_recieve_message: "<gray><i>You feel gifted with Haste <haste>..."
-fatigue_effect_recieve_message: "<gray><i>You've fallen under the effects of Mining Fatigue <fatigue>..."
+haste_effect_receive_message: "<gray><i>You feel gifted with Haste <haste>..."
+fatigue_effect_receive_message: "<gray><i>You've fallen under the effects of Mining Fatigue <fatigue>..."
 block_break_denial_message: "<red>You can't destroy this block."
 # types 'chat', 'hotbar', 'none'
 block_break_denial_location: 'chat'
 
 block_breaking_particles: true
 repetitive_block_break_delay: true
+

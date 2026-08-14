@@ -4,6 +4,7 @@ import io.github.flegacy.flms.command.FLMSCommand;
 import io.github.flegacy.flms.data.ConfigurationValues;
 import io.github.flegacy.flms.items.ItemLibrary;
 import io.github.flegacy.flms.mining.PlayerJoinListener;
+import io.github.flegacy.flms.registry.FLMSRegistry;
 import io.github.flegacy.flms.ui.InterfaceListener;
 import io.github.flegacy.flms.utils.SoundPlayer;
 import io.github.flegacy.flms.wand.WandListener;
@@ -25,6 +26,7 @@ public class FLMS extends JavaPlugin {
 	private static final String COMMAND_DESCRIPTION = "All-in-one command for the FLMS plugin.";
 
 	private ItemLibrary itemLibrary;
+	private FLMSRegistry registry;
     private ProtocolManager protocolManager;
     private ConfigurationValues configurationValues;
 
@@ -45,6 +47,7 @@ public class FLMS extends JavaPlugin {
         configurationValues = new ConfigurationValues(this);
 		itemLibrary = new ItemLibrary(this);
         protocolManager = ProtocolLibrary.getProtocolManager();
+		registry = new FLMSRegistry();
 
 		getLifecycleManager()
 				.registerEventHandler(
@@ -78,5 +81,9 @@ public class FLMS extends JavaPlugin {
     public ConfigurationValues getConfigValues() {
         return configurationValues;
     }
+
+	public FLMSRegistry getRegistry() {
+		return registry;
+	}
 
 }
