@@ -34,6 +34,7 @@ public class FLMSCommand {
 		branches.add(new WandCommandBranch(plugin));
 		branches.add(new EnchantCommandBranch(plugin));
 		branches.add(new ReloadCommandBranch(plugin));
+		branches.add(new InfoCommandBranch(plugin));
 	}
 
 	public LiteralCommandNode<CommandSourceStack> getCommandNode() {

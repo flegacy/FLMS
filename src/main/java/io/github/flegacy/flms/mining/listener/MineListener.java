@@ -22,7 +22,6 @@ public class MineListener implements Listener {
 		this.plugin = plugin;
 	}
 
-	// TODO test vanilla instamine blocks like crops as registered blocks. There seems to be a bug related to spamming these two events back to back
 	@EventHandler
 	public void onBlockDamage(BlockDamageEvent event) {
 		RegisteredBlock matchedBlock = plugin.getRegistry().getBlock(event.getBlock().getType());

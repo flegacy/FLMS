@@ -24,6 +24,7 @@ import java.io.IOException;
 public class FLMS extends JavaPlugin {
 
 	private static final String COMMAND_DESCRIPTION = "All-in-one command for the FLMS plugin.";
+	public static final String FLMS_PERMISSION = "flms.admin";
 
 	private ItemLibrary itemLibrary;
 	private FLMSRegistry registry;
