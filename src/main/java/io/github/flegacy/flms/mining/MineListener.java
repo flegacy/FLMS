@@ -1,18 +1,16 @@
 package io.github.flegacy.flms.mining;
 
-import io.github.flegacy.flms.FLMS;
-import io.github.flegacy.flms.mining.MineManager;
-import io.github.flegacy.flms.registry.RegisteredBlock;
-
-import net.kyori.adventure.text.Component;
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageAbortEvent;
 import org.bukkit.event.block.BlockDamageEvent;
+
+import io.github.flegacy.flms.FLMS;
+import io.github.flegacy.flms.registry.RegisteredBlock;
 
 public class MineListener implements Listener {
 	private static MineListener instance;
@@ -32,7 +30,7 @@ public class MineListener implements Listener {
 		if (matchedBlock == null)
 			return;
 		// TODO testing
-		int tickInterval = 5;
+		int tickInterval = 3;
         MineManager manager = plugin.getMineManager();
         if (!manager.hasTask(player))
             manager.startTask(player, tickInterval, event.getBlock().getLocation(), Material.AIR);

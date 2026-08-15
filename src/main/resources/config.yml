@@ -21,4 +21,4 @@ block_break_denial_message: "<red>You can't destroy this block."
 block_break_denial_location: 'chat'
 
 block_breaking_particles: true
-
+block_breaking_updates: false

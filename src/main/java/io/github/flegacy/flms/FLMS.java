@@ -41,12 +41,15 @@ public class FLMS extends JavaPlugin {
             try {
                 getDataFolder().createNewFile();
             } catch (IOException e) {
-                throw new RuntimeException(e);
+				getComponentLogger().error(
+						"I was unable to create the plugin data folder, and this I can't save any configurations for this session. This plugin will shut down as a result.");
+				getServer().getPluginManager().disablePlugin(this);
             }
         }
+        // TODO check if config is working
 
-        saveResource("config.yml", false);
         saveDefaultConfig();
+        getConfig().options().copyDefaults(true);
 
         configurationValues = new ConfigurationValues(this);
         itemLibrary = new ItemLibrary(this);
@@ -67,13 +70,13 @@ public class FLMS extends JavaPlugin {
         manager.registerEvents(WandListener.getInstance(this), this);
         manager.registerEvents(MineListener.getInstance(this), this);
 
-        getLogger().info("Successfully loaded. Hello World!");
+        getComponentLogger().info("Successfully loaded. Hello World!");
     }
 
     @Override
     public void onDisable() {
         getServer().getScheduler().cancelTasks(this);
-        getLogger().info("Successfully disabled. Goodbye!");
+		getComponentLogger().info("Successfully disabled.");
     }
 
     public ItemLibrary getItemLibrary() {

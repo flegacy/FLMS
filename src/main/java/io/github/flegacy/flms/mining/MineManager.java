@@ -5,11 +5,14 @@ import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.BlockPosition;
 import io.github.flegacy.flms.FLMS;
+import io.github.flegacy.flms.data.ConfigurationValues;
+
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -62,6 +65,7 @@ public class MineManager {
 		if (!taskMap.containsKey(player.getUniqueId()))
 			return;
 		MineTask task = taskMap.get(player.getUniqueId());
+        
 		task.abort();
 	}
 
@@ -111,8 +115,21 @@ public class MineManager {
 			protocolManager.sendServerPacket(player, packet);
 
 			Block original = player.getWorld().getBlockAt(location);
+            final Material originalType = original.getType();
+            FLMSBlockBreakEvent event = new FLMSBlockBreakEvent(original, player);
+            plugin.getServer().getPluginManager().callEvent(event);
+
 			player.getWorld().playEffect(original.getLocation(), Effect.DESTROY_BLOCK, original.getBlockData());
-			original.setType(postBlockType);
+            boolean update = plugin.getConfigValues().getBoolean(ConfigurationValues.Key.BLOCK_BREAKING_UPDATES);
+			original.setType(postBlockType, update);
+
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    if (event.isCancelled())
+                        original.setType(originalType);
+                }
+            }.runTaskLater(plugin, 1);
 
 			taskMap.remove(player.getUniqueId());
 		}

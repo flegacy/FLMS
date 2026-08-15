@@ -15,6 +15,7 @@ public class ReloadCommandBranch implements CommandBranch {
 
 	public ReloadCommandBranch(FLMS plugin) {
 		this.plugin = plugin;
+        plugin.reloadConfig();
 	}
 
 	@Override
