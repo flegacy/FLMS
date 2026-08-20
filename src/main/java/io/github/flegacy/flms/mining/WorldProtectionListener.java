@@ -1,13 +1,11 @@
 package io.github.flegacy.flms.mining;
 
-import io.github.flegacy.flms.FLMS;
-import io.github.flegacy.flms.registry.RegisteredBlock;
-import io.papermc.paper.event.block.BlockBreakBlockEvent;
-
+import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.Bukkit;
+
+import io.github.flegacy.flms.FLMS;
 
 public class WorldProtectionListener implements Listener {
 	private static WorldProtectionListener instance;
@@ -22,6 +20,8 @@ public class WorldProtectionListener implements Listener {
 	public void onBlockBreak(BlockBreakEvent event) {
 		// TODO enable compatibility with other listeners later instead of just stopping the event altogether.
 		// TODO integrate crops
+        if (event.getPlayer().getGameMode() != GameMode.SURVIVAL)
+            return;
         if (!(event instanceof FLMSBlockBreakEvent flmsEvent)) {
             event.setCancelled(true);
             return;

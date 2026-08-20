@@ -94,6 +94,8 @@ public class ConfigurationValues {
         USE_ROMAN_NUMERALS("use_roman_numerals", Boolean.class, false),
         BLOCK_BREAKING_PARTICLES("block_breaking_particles", Boolean.class, true),
         BLOCK_BREAKING_UPDATES("block_breaking_updates", Boolean.class, false),
+        BLOCK_XP_AUTO_PICKUP("block_xp_auto_pickup", Boolean.class, false),
+        BLOCK_BREAK_FAILURE_SOUND("block_break_failure_sound", Boolean.class, true),
         ENCHANT_FOR_MESSAGE("enchant_for_message", String.class,
                 "<gray><i>Your item was enchanted with Efficiency <efficiency>."),
         HASTE_EFFECT_RECEIVE_MESSAGE("haste_effect_recieve_message", String.class,

@@ -27,6 +27,14 @@ public class SoundPlayer {
 		player.playSound(player.getLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.UI, 1, 1);
 	}
 
+    public static void playBookFlipSound(Player player) {
+        player.playSound(player.getLocation(), Sound.ITEM_BOOK_PAGE_TURN, SoundCategory.UI, 1, 1);
+    }
+
+    public static void playDelaySound(Player player) {
+        player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, SoundCategory.UI, 1, 1);
+    }
+    
 	public static void playWandOpenSound(Player player, FLMS plugin) {
 		new BukkitRunnable() {
 			int pitch = 0;

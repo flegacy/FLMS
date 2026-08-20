@@ -44,4 +44,3 @@ java {
     withSourcesJar()
     withJavadocJar()
 }
-

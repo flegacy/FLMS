@@ -9,13 +9,18 @@ import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.plugin.configuration.PluginMeta;
 import net.kyori.adventure.text.Component;
 
+import java.awt.print.Book;
 import java.util.List;
+
+import org.bukkit.inventory.Inventory;
+import org.jetbrains.annotations.NotNull;
 
 public class InfoCommandBranch implements CommandBranch {
 
 	private static final String BRANCH_LITERAL = "info";
 
 	private final FLMS plugin;
+    // TODO improve info with actual help for the features of the plugin, and replace the help command with it
 
 	public InfoCommandBranch(FLMS plugin) {
 		this.plugin = plugin;

@@ -19,6 +19,9 @@ fatigue_effect_receive_message: "<gray><i>You've fallen under the effects of Min
 block_break_denial_message: "<red>You can't destroy this block."
 # types 'chat', 'hotbar', 'none'
 block_break_denial_location: 'chat'
+block_break_failure_sound: true
 
 block_breaking_particles: true
 block_breaking_updates: false
+block_xp_auto_pickup: false
+

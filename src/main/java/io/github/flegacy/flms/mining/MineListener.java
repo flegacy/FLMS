@@ -33,7 +33,7 @@ public class MineListener implements Listener {
 		int tickInterval = 3;
         MineManager manager = plugin.getMineManager();
         if (!manager.hasTask(player))
-            manager.startTask(player, tickInterval, event.getBlock().getLocation(), Material.AIR);
+            manager.startTask(player, tickInterval, event.getBlock().getLocation(), matchedBlock);
 	}
 
 	@EventHandler

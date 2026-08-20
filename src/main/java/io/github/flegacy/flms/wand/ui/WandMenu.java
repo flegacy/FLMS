@@ -8,7 +8,7 @@ import net.kyori.adventure.text.Component;
 public class WandMenu extends FLMSInterface {
 
 	public WandMenu(FLMS plugin) {
-		super(27, Component.text("FLMS Config Menu"), plugin);
+		super(27, "FLMS Config Menu");
 		ItemLibrary lib = plugin.getItemLibrary();
 
 		setElement(10, new TransferButton(lib.getBlockConfigIcon(), null));
