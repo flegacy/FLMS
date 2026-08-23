@@ -24,5 +24,4 @@ class FLMSCommand(private val plugin: FLMS) {
         
         return root.build()
     }
-     
 }
