@@ -6,19 +6,25 @@ import io.github.flegacy.flms.util.FLMS_LIGHT_YELLOW
 import io.github.flegacy.flms.util.FLMS_ORANGE
 import io.github.flegacy.flms.util.FLMS_RED
 import io.github.flegacy.flms.util.FLMS_YELLOW
+import io.github.flegacy.flms.util.msgFormat
+import net.kyori.adventure.text.Component
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.meta.ItemMeta
 import org.bukkit.persistence.PersistentDataType
+import sun.jvm.hotspot.debugger.cdbg.basic.BasicDebugEvent
 
 private const val FLMS_WAND_TAG = "flms_wand"
+private const val EFFICIENCY_PREFIX = "⛏ Efficiency "
 
 class ItemLibrary(plugin: FLMS) {
 
     private val itemKey = NamespacedKey(plugin, "flms_item")
     private val effKey = NamespacedKey(plugin, "flms_efficiency")
 
+    val enchanter = Enchanter()
 
     fun wand(): ItemStack {
         val wand = ItemStackBuilder(Material.GOLDEN_AXE)
@@ -56,13 +62,13 @@ class ItemLibrary(plugin: FLMS) {
         .name("${FLMS_ORANGE}<b><i>Jump to First -->")
         .lore("${FLMS_YELLOW}<b>CLICK TO VIEW")
         .build()
-        
+
     fun jumpLast(): ItemStack = ItemStackBuilder(Material.SPECTRAL_ARROW)
         .name("${FLMS_ORANGE}<b><i><-- Jump to Last")
         .lore("${FLMS_YELLOW}<b>CLICK TO VIEW")
         .build()
 
-        // TODO update descriptions
+    // TODO update descriptions
     fun blkCfgIcon(): ItemStack = ItemStackBuilder(Material.BEDROCK)
         .name("${FLMS_ORANGE}Edit Custom Blocks")
         .lore(
@@ -114,6 +120,61 @@ class ItemLibrary(plugin: FLMS) {
         )
         .build()
 
+    inner class Enchanter {
 
+        fun effApply(item: ItemStack, level: Short, show: Boolean) {
+            require(!item.type.isAir)
+            require(level >= 0)
+
+            val meta = item.itemMeta
+            if (hasEff(item) && level == 0.toShort())
+                 meta.persistentDataContainer.remove(effKey)
+            else
+                meta.persistentDataContainer.set(effKey, PersistentDataType.SHORT, level)
+
+            updateLore(meta, level, show)
+            updateGlint(meta, level, show)
+
+            item.itemMeta = meta
+        }
+
+        fun updateLore(meta: ItemMeta, level: Short, show: Boolean) {
+            val cleanLore = 
+            (if (meta.hasLore())
+                meta.lore()
+            else
+                mutableListOf<Component>())!!
+
+            for (line in cleanLore)
+                if (line.toString().contains(EFFICIENCY_PREFIX)) {
+                    cleanLore.remove(line)
+                    break
+                }
+
+            if (show && level != 0.toShort())
+                cleanLore.addFirst(msgFormat("<gray><!i>$EFFICIENCY_PREFIX$level"))
+
+            meta.lore(cleanLore)
+        }
+
+
+        @Suppress("UsePropertyAccessSyntax") // doesn't work with enchantment glint override
+        fun updateGlint(meta: ItemMeta, level: Short, show: Boolean) {
+            if (meta.hasEnchants())
+                return
+            if (level == 0.toShort() || !show) 
+                meta.setEnchantmentGlintOverride(true)
+            else
+                meta.setEnchantmentGlintOverride(null)
+        }
+
+        fun hasEff(item: ItemStack): Boolean {
+            if (item.type.isAir)
+                return false
+            return item.itemMeta.persistentDataContainer.has(itemKey)
+        }
+
+    }
 }
+
 

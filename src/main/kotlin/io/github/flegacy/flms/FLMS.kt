@@ -10,11 +10,9 @@ const val COMMAND_DESCRIPTION = "All-in-one command for FLMS."
 
 class FLMS: JavaPlugin() {
 
-    var itemLibrary: ItemLibrary? = null
+    var itemLibrary = ItemLibrary(this)
 
     override fun onEnable() {
-
-        itemLibrary = ItemLibrary(this)
 
         if (dataFolder.exists())
             dataFolder.createNewFile()
