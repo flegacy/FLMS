@@ -1,0 +1,11 @@
+name: FLMS
+description: $description
+prefix: FLMS
+version: '${version}'
+
+main: io.github.flegacy.flms.FLMS
+api-version: '26.2'
+load: POSTWORLD
+
+authors: [ flegacy ]
+website: https://github.com/flegacy/FLMS
