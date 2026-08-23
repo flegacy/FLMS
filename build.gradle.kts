@@ -30,6 +30,6 @@ tasks {
     }
 
     jar {
-        destinationDirectory.set(file("home/legacy/mcserver/plugins/"))
+        destinationDirectory.set(file("/home/legacy/mcserver/plugins/"))
     }
 }
