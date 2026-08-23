@@ -1,6 +1,7 @@
 package io.github.flegacy.flms
 
 import io.github.flegacy.flms.command.FLMSCommand
+import io.github.flegacy.flms.items.ItemLibrary
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents
 import org.bukkit.plugin.java.JavaPlugin
 
@@ -9,7 +10,11 @@ const val COMMAND_DESCRIPTION = "All-in-one command for FLMS."
 
 class FLMS: JavaPlugin() {
 
+    var itemLibrary: ItemLibrary? = null
+
     override fun onEnable() {
+
+        itemLibrary = ItemLibrary(this)
 
         if (dataFolder.exists())
             dataFolder.createNewFile()
