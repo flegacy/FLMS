@@ -171,15 +171,21 @@ class ItemLibrary(plugin: FLMS) {
             if (meta.hasEnchants())
                 return
             if (level == 0.toShort() || !show)
-                meta.setEnchantmentGlintOverride(true)
-            else
                 meta.setEnchantmentGlintOverride(null)
+            else
+                meta.setEnchantmentGlintOverride(true)
         }
 
         fun hasEff(item: ItemStack): Boolean {
             if (item.type.isAir)
                 return false
-            return item.itemMeta.persistentDataContainer.has(itemKey)
+            return item.itemMeta.persistentDataContainer.has(effKey)
+        }
+
+        fun level(item: ItemStack): Short {
+            if (!hasEff(item))
+                return 0
+            return item.itemMeta.persistentDataContainer.get(effKey, PersistentDataType.SHORT)!!
         }
 
     }

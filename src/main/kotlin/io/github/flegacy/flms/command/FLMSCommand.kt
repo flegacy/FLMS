@@ -4,6 +4,7 @@ import com.mojang.brigadier.tree.LiteralCommandNode
 import io.github.flegacy.flms.FLMS
 import io.github.flegacy.flms.FLMS_PERMISSION
 import io.github.flegacy.flms.command.branch.CommandBranch
+import io.github.flegacy.flms.command.branch.EnchantCommandBranch
 import io.github.flegacy.flms.command.branch.WandCommandBranch
 import io.papermc.paper.command.brigadier.CommandSourceStack
 import io.papermc.paper.command.brigadier.Commands
@@ -15,7 +16,8 @@ private const val COMMAND_PERMISSION = "$FLMS_PERMISSION.command"
 class FLMSCommand(plugin: FLMS) {
 
     private val branches = listOf<CommandBranch>(
-        WandCommandBranch(plugin)
+        WandCommandBranch(plugin),
+        EnchantCommandBranch(plugin)
     )
 
     fun buildCommandNode() : LiteralCommandNode<CommandSourceStack> {
