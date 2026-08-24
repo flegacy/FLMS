@@ -4,13 +4,13 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.minimessage.MiniMessage
 import org.bukkit.inventory.ItemStack
 
-const val FLMS_ORANGE = "<#ffa229"
-const val FLMS_YELLOW = "<#ffa229"
-const val FLMS_LIGHT_YELLOW = "<#ffa229"
-const val FLMS_RED = "<#ffa229"
-const val FLMS_LIGHT_RED = "<#ffa229"
-const val FLMS_WHITE = "<#ffa229"
-const val FLMS_GRAY = "<#ffa229"
+const val FLMS_ORANGE = "<#ffa229>"
+const val FLMS_YELLOW = "<#ffcd61>"
+const val FLMS_LIGHT_YELLOW = "<#ffefcc>"
+const val FLMS_RED = "<#e0003c>"
+const val FLMS_LIGHT_RED = "<#ffd4d4>"
+const val FLMS_WHITE = "<#e4f0ef>"
+const val FLMS_GRAY = "<#898f8e>"
 
 const val ERROR_COMMAND_CONSOLE = "You must be in-game to use this comand."
 const val ERROR_INVENTORY_FULL = "Your inventory is too full to do this!"
@@ -40,7 +40,7 @@ fun resolveName(item: ItemStack?): String {
     if (item.type.isAir)
         return "Air"
     if (item.hasItemMeta() && item.itemMeta.hasDisplayName())
-        return MiniMessage.miniMessage().serialize(item.itemMeta.displayName())
+        return item.itemMeta.displayName().toString()
     return resolveName(item.type)
 }
 

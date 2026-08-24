@@ -29,7 +29,7 @@ tasks {
         }
     }
 
-    jar {
+    shadowJar {
         destinationDirectory.set(file("/home/legacy/mcserver/plugins/"))
     }
 }

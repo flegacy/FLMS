@@ -14,7 +14,6 @@ import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
 import org.bukkit.persistence.PersistentDataType
-import sun.jvm.hotspot.debugger.cdbg.basic.BasicDebugEvent
 
 private const val FLMS_WAND_TAG = "flms_wand"
 private const val EFFICIENCY_PREFIX = "⛏ Efficiency "
@@ -25,6 +24,15 @@ class ItemLibrary(plugin: FLMS) {
     private val effKey = NamespacedKey(plugin, "flms_efficiency")
 
     val enchanter = Enchanter()
+
+    fun isWand(item: ItemStack): Boolean {
+        if (item.type.isAir)
+            return false
+        if (!item.itemMeta.persistentDataContainer.has(itemKey))
+            return false
+        return item.itemMeta.persistentDataContainer.get(itemKey, PersistentDataType.STRING)
+            .equals(FLMS_WAND_TAG)
+    }
 
     fun wand(): ItemStack {
         val wand = ItemStackBuilder(Material.GOLDEN_AXE)
@@ -128,7 +136,7 @@ class ItemLibrary(plugin: FLMS) {
 
             val meta = item.itemMeta
             if (hasEff(item) && level == 0.toShort())
-                 meta.persistentDataContainer.remove(effKey)
+                meta.persistentDataContainer.remove(effKey)
             else
                 meta.persistentDataContainer.set(effKey, PersistentDataType.SHORT, level)
 
@@ -139,11 +147,11 @@ class ItemLibrary(plugin: FLMS) {
         }
 
         fun updateLore(meta: ItemMeta, level: Short, show: Boolean) {
-            val cleanLore = 
-            (if (meta.hasLore())
-                meta.lore()
-            else
-                mutableListOf<Component>())!!
+            val cleanLore =
+                (if (meta.hasLore())
+                    meta.lore()
+                else
+                    mutableListOf<Component>())!!
 
             for (line in cleanLore)
                 if (line.toString().contains(EFFICIENCY_PREFIX)) {
@@ -162,7 +170,7 @@ class ItemLibrary(plugin: FLMS) {
         fun updateGlint(meta: ItemMeta, level: Short, show: Boolean) {
             if (meta.hasEnchants())
                 return
-            if (level == 0.toShort() || !show) 
+            if (level == 0.toShort() || !show)
                 meta.setEnchantmentGlintOverride(true)
             else
                 meta.setEnchantmentGlintOverride(null)

@@ -6,6 +6,8 @@ import io.github.flegacy.flms.FLMS
 import io.github.flegacy.flms.util.ERROR_COMMAND_CONSOLE
 import io.github.flegacy.flms.util.ERROR_INVENTORY_FULL
 import io.github.flegacy.flms.util.errPrefixed
+import io.github.flegacy.flms.util.prefixed
+import io.github.flegacy.flms.util.soundPickup
 import io.papermc.paper.command.brigadier.CommandSourceStack
 import io.papermc.paper.command.brigadier.Commands
 import org.bukkit.entity.Player
@@ -15,7 +17,8 @@ private const val BRANCH_LITERAL = "wand"
 class WandCommandBranch(private val plugin: FLMS): CommandBranch {
 
     override fun buildCommandTree(): LiteralArgumentBuilder<CommandSourceStack> {
-        return Commands.literal()
+        return Commands.literal(BRANCH_LITERAL)
+            .executes { ctx -> execute(ctx.source) }
     }
 
     private fun execute(source: CommandSourceStack): Int {
@@ -31,9 +34,10 @@ class WandCommandBranch(private val plugin: FLMS): CommandBranch {
             return 0
         }
 
-
+        soundPickup(player)
         player.inventory.addItem(plugin.itemLibrary.wand())
-        player.sendMessage(errPrefixed("The FLMS wand was added to your inventory."))
+        player.sendMessage(prefixed("The FLMS wand was added to your inventory."))
+        return Command.SINGLE_SUCCESS
     }
 
 }
