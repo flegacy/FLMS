@@ -3,6 +3,7 @@ package io.github.flegacy.flms
 import io.github.flegacy.flms.command.FLMSCommand
 import io.github.flegacy.flms.data.ConfigurationValues
 import io.github.flegacy.flms.items.ItemLibrary
+import io.github.flegacy.flms.registry.FLMSRegistry
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents
 import org.bukkit.plugin.java.JavaPlugin
 import sun.security.krb5.Config
@@ -14,7 +15,7 @@ class FLMS: JavaPlugin() {
 
     private var itemLib: ItemLibrary? = null
     private var configValues: ConfigurationValues? = null
-
+    private var registry: FLMSRegistry? = null
 
     override fun onEnable() {
 
@@ -26,6 +27,7 @@ class FLMS: JavaPlugin() {
 
         itemLib = ItemLibrary(this)
         configValues = ConfigurationValues(this)
+        registry = FLMSRegistry(this)
 
         lifecycleManager.registerEventHandler(LifecycleEvents.COMMANDS) {
             event -> event.registrar().register(FLMSCommand(this).buildCommandNode(), COMMAND_DESCRIPTION)
@@ -44,5 +46,9 @@ class FLMS: JavaPlugin() {
 
     fun cfgVals(): ConfigurationValues {
         return configValues!!
+    }
+
+    fun registry(): FLMSRegistry {
+        return registry!!
     }
 }

@@ -130,15 +130,14 @@ class ItemLibrary(plugin: FLMS) {
 
     inner class Enchanter {
 
-        fun effApply(item: ItemStack, level: Short, show: Boolean) {
+        fun effApply(item: ItemStack, level: UShort, show: Boolean) {
             require(!item.type.isAir)
-            require(level >= 0)
 
             val meta = item.itemMeta
-            if (hasEff(item) && level == 0.toShort())
+            if (hasEff(item) && level == 0.toUShort())
                 meta.persistentDataContainer.remove(effKey)
             else
-                meta.persistentDataContainer.set(effKey, PersistentDataType.SHORT, level)
+                meta.persistentDataContainer.set(effKey, PersistentDataType.SHORT, level.toShort())
 
             updateLore(meta, level, show)
             updateGlint(meta, level, show)
@@ -146,7 +145,7 @@ class ItemLibrary(plugin: FLMS) {
             item.itemMeta = meta
         }
 
-        fun updateLore(meta: ItemMeta, level: Short, show: Boolean) {
+        fun updateLore(meta: ItemMeta, level: UShort, show: Boolean) {
             val cleanLore =
                 (if (meta.hasLore())
                     meta.lore()
@@ -159,7 +158,7 @@ class ItemLibrary(plugin: FLMS) {
                     break
                 }
 
-            if (show && level != 0.toShort())
+            if (show && level != 0.toUShort())
                 cleanLore.addFirst(msgFormat("<gray><!i>$EFFICIENCY_PREFIX$level"))
 
             meta.lore(cleanLore)
@@ -167,10 +166,10 @@ class ItemLibrary(plugin: FLMS) {
 
 
         @Suppress("UsePropertyAccessSyntax") // doesn't work with enchantment glint override
-        fun updateGlint(meta: ItemMeta, level: Short, show: Boolean) {
+        fun updateGlint(meta: ItemMeta, level: UShort, show: Boolean) {
             if (meta.hasEnchants())
                 return
-            if (level == 0.toShort() || !show)
+            if (level == 0.toUShort() || !show)
                 meta.setEnchantmentGlintOverride(null)
             else
                 meta.setEnchantmentGlintOverride(true)

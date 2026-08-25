@@ -68,7 +68,7 @@ class EnchantCommandBranch(private val plugin: FLMS) : CommandBranch {
         
         val player = source.sender as Player
         val held = player.inventory.itemInMainHand
-        val level = intLevel.toShort()
+        val level = intLevel.toUShort()
         // Brigadier should guarantee the input level being positive and between or equal to 1 and 255
         
         val visMsg = 
@@ -93,7 +93,7 @@ class EnchantCommandBranch(private val plugin: FLMS) : CommandBranch {
             return 0
         }
 
-        plugin.itemLib().enchanter.effApply(held, 0.toShort(), false)
+        plugin.itemLib().enchanter.effApply(held, 0.toUShort(), false)
         player.sendMessage(prefixed("Removed FLMS efficiency from your held item."))
         return Command.SINGLE_SUCCESS
     }
