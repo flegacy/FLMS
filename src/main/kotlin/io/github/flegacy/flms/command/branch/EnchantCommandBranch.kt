@@ -50,7 +50,7 @@ class EnchantCommandBranch(private val plugin: FLMS) : CommandBranch {
             return 0
         val player = source.sender as Player
         val held = player.inventory.itemInMainHand
-        val level = plugin.itemLibrary.enchanter.level(held)
+        val level = plugin.itemLib().enchanter.level(held)
 
         val msg = 
             if (level == 0.toShort())
@@ -76,7 +76,7 @@ class EnchantCommandBranch(private val plugin: FLMS) : CommandBranch {
                 "and it's showing!"
             else
                 "but it's hidden..."
-        plugin.itemLibrary.enchanter.effApply(held, level, visible)
+        plugin.itemLib().enchanter.effApply(held, level, visible)
         player.sendMessage(prefixed("You applied efficiency $FLMS_YELLOW$level${FLMS_LIGHT_YELLOW}, $visMsg"))
         soundEnchant(player)
         return Command.SINGLE_SUCCESS
@@ -87,13 +87,13 @@ class EnchantCommandBranch(private val plugin: FLMS) : CommandBranch {
             return 0
         val player = source.sender as Player
         val held = player.inventory.itemInMainHand
-        if (!plugin.itemLibrary.enchanter.hasEff(held)) {
+        if (!plugin.itemLib().enchanter.hasEff(held)) {
             player.sendMessage(errPrefixed("This item isn't enchanted."))
             soundError(player)
             return 0
         }
 
-        plugin.itemLibrary.enchanter.effApply(held, 0.toShort(), false)
+        plugin.itemLib().enchanter.effApply(held, 0.toShort(), false)
         player.sendMessage(prefixed("Removed FLMS efficiency from your held item."))
         return Command.SINGLE_SUCCESS
     }

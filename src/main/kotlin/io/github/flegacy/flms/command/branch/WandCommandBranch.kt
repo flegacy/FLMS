@@ -35,7 +35,7 @@ class WandCommandBranch(private val plugin: FLMS): CommandBranch {
         }
 
         soundPickup(player)
-        player.inventory.addItem(plugin.itemLibrary.wand())
+        player.inventory.addItem(plugin.itemLib().wand())
         player.sendMessage(prefixed("The FLMS wand was added to your inventory."))
         return Command.SINGLE_SUCCESS
     }

@@ -5,9 +5,11 @@ import io.github.flegacy.flms.FLMS
 import io.github.flegacy.flms.FLMS_PERMISSION
 import io.github.flegacy.flms.command.branch.CommandBranch
 import io.github.flegacy.flms.command.branch.EnchantCommandBranch
+import io.github.flegacy.flms.command.branch.ReloadCommandBranch
 import io.github.flegacy.flms.command.branch.WandCommandBranch
 import io.papermc.paper.command.brigadier.CommandSourceStack
 import io.papermc.paper.command.brigadier.Commands
+import org.bukkit.command.defaults.ReloadCommand
 
 private const val ROOT_LITERAL = "flms"
 // TODO see if permissions are working properly
@@ -17,7 +19,8 @@ class FLMSCommand(plugin: FLMS) {
 
     private val branches = listOf<CommandBranch>(
         WandCommandBranch(plugin),
-        EnchantCommandBranch(plugin)
+        EnchantCommandBranch(plugin),
+        ReloadCommandBranch(plugin)
     )
 
     fun buildCommandNode() : LiteralCommandNode<CommandSourceStack> {
