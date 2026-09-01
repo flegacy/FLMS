@@ -1,0 +1,26 @@
+#FLMS PLUGIN CONFIGURATION
+
+  enabled: true
+
+  allow_vanilla_haste_sources: true
+  allow_vanilla_fatigue_sources: true
+
+  allow_vanilla_efficiency_enchantment: true
+  allow_vanilla_grindstone_usage: true
+  allow_vanilla_anvil_usage: true
+
+  # FLMS Message CONFIGURATION
+
+  use_roman_numerals: false
+  # Inform of mini-message format and silent option in command
+  enchant_for_message: "<gray><i>Your item was enchanted with Efficiency <efficiency>."
+  haste_effect_receive_message: "<gray><i>You feel gifted with Haste <haste>..."
+  fatigue_effect_receive_message: "<gray><i>You've fallen under the effects of Mining Fatigue <fatigue>..."
+  block_break_denial_message: "<red>You can't destroy this block."
+  # types 'chat', 'hotbar', 'none'
+  block_break_denial_location: 'chat'
+  block_break_failure_sound: true
+
+  block_breaking_particles: true
+  block_breaking_updates: false
+  block_xp_auto_pickup: false
