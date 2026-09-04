@@ -9,8 +9,6 @@ import io.github.flegacy.flms.mining.WorldProtectionListener
 import io.github.flegacy.flms.registry.FLMSRegistry
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents
 import org.bukkit.plugin.java.JavaPlugin
-import sun.security.krb5.Config
-import kotlin.random.Random
 
 const val FLMS_PERMISSION = "flms.admin"
 const val COMMAND_DESCRIPTION = "All-in-one command for FLMS."
@@ -54,7 +52,7 @@ class FLMS: JavaPlugin() {
         return itemLib!!
     }
 
-    fun cfgVals(): ConfigurationValues {
+    fun configValues(): ConfigurationValues {
         return configValues!!
     }
 

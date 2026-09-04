@@ -27,8 +27,8 @@ fun errPrefixed(msg: String): Component = msgFormat("$FLMS_RED<b>FLMS ERROR</b> 
 fun resolveName(enumToFormat: Enum<*>): String {
     val builder = StringBuilder()
     enumToFormat.toString().split("_").forEach {
-        builder.append(it[0])
-        builder.append(it.substring(1))
+        builder.append(it[0].uppercase())
+        builder.append(it.substring(1).lowercase())
         builder.append(" ")
     }
     return builder.substring(0, builder.length - 1)

@@ -17,7 +17,7 @@ class ReloadCommandBranch(private val plugin: FLMS): CommandBranch {
     }
 
     private fun execute(source: CommandSourceStack): Int {
-        val result = plugin.cfgVals().reload()
+        val result = plugin.configValues().reload()
         val msg = 
             if (result)
                 prefixed("Sucessfully reloaded the config with no errors.")

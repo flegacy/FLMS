@@ -4,6 +4,7 @@ import com.mojang.brigadier.tree.LiteralCommandNode
 import io.github.flegacy.flms.FLMS
 import io.github.flegacy.flms.FLMS_PERMISSION
 import io.github.flegacy.flms.command.branch.CommandBranch
+import io.github.flegacy.flms.command.branch.EffectCommandBranch
 import io.github.flegacy.flms.command.branch.EnchantCommandBranch
 import io.github.flegacy.flms.command.branch.ReloadCommandBranch
 import io.github.flegacy.flms.command.branch.TestCommandBranch
@@ -22,7 +23,8 @@ class FLMSCommand(plugin: FLMS) {
         WandCommandBranch(plugin),
         EnchantCommandBranch(plugin),
         ReloadCommandBranch(plugin),
-        TestCommandBranch(plugin)
+        TestCommandBranch(plugin),
+        EffectCommandBranch(plugin)
     )
 
     fun buildCommandNode() : LiteralCommandNode<CommandSourceStack> {

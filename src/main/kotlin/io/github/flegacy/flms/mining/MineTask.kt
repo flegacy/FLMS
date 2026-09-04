@@ -8,14 +8,12 @@ import io.github.flegacy.flms.data.Key
 import io.github.flegacy.flms.registry.RegisteredBlock
 import io.github.flegacy.flms.util.msgFormat
 import io.github.flegacy.flms.util.soundError
-import net.kyori.adventure.chat.ChatType
 import org.bukkit.Effect
 import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.block.Block
 import org.bukkit.entity.ExperienceOrb
 import org.bukkit.entity.Player
-import org.bukkit.scheduler.BukkitRunnable
 
 class MineTask(
     private val plugin: FLMS,
@@ -63,10 +61,10 @@ class MineTask(
         plugin.server.scheduler.runTaskLater(plugin, { task -> run {
 
             if (event.isCancelled) {
-                if (plugin.cfgVals().boolean(Key.BLOCK_BREAK_FAILURE_SOUND))
+                if (plugin.configValues().boolean(Key.BLOCK_BREAK_FAILURE_SOUND))
                     soundError(player)
-                val msg = plugin.cfgVals().string(Key.BLOCK_BREAK_DENIAL_MESSAGE)
-                val msgLocation = plugin.cfgVals().string(Key.BLOCK_BREAK_DENIAL_LOCATION)
+                val msg = plugin.configValues().string(Key.BLOCK_BREAK_DENIAL_MESSAGE)
+                val msgLocation = plugin.configValues().string(Key.BLOCK_BREAK_DENIAL_LOCATION)
 
                 if (msgLocation.equals("chat", true))
                     player.sendMessage(msgFormat(msg))
@@ -86,7 +84,7 @@ class MineTask(
     private fun fullBreak(original: Block, originalType: Material) {
         player.world.playEffect(original.location, Effect.DESTROY_BLOCK, originalType.createBlockData())
 
-        val update = plugin.cfgVals().boolean(Key.BLOCK_BREAKING_UPDATES)
+        val update = plugin.configValues().boolean(Key.BLOCK_BREAKING_UPDATES)
         original.setType(block.postType, update)
 
         block.drops.forEach { drop -> original.world.dropItemNaturally(original.location, drop) }

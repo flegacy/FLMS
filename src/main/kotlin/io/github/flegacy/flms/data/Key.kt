@@ -20,11 +20,19 @@ enum class Key(private val string: String, val type: KClass<*>, val default: Any
     ),
     HASTE_EFFECT_RECEIVE_MESSAGE(
         "haste_effect_recieve_message", String::class,
-        "<gray><i>You feel gifted with Haste <haste>..."
+        "<gray><i>You feel gifted with Haste <level>..."
     ),
     FATIGUE_EFFECT_RECEIVE_MESSAGE(
         "fatigue_effect_recieve_message", String::class,
-        "<gray><i>You've fallen under the effects of Mining Fatigue <fatigue>..."
+        "<gray><i>You've fallen under the effects of Mining Fatigue <level>..."
+    ),
+    FATIGUE_EFFECT_REMOVE_MESSAGE(
+        "fatigue_effect_remove_message", String::class,
+        "<gray><i>You've been cleansed of mining fatigue..."
+    ),
+    HASTE_EFFECT_REMOVE_MESSAGE(
+        "haste_effect_remove_message", String::class,
+        "<gray><i>You've been cleansed of haste..."
     ),
     BLOCK_BREAK_DENIAL_MESSAGE("block_break_denial_message", String::class, "<red>You can't destroy this block."),
     BLOCK_BREAK_DENIAL_LOCATION("block_break_denial_location", String::class, "chat");
