@@ -38,7 +38,7 @@ class ItemLibrary(plugin: FLMS) {
     fun wand(): ItemStack {
         val wand = ItemStackBuilder(Material.GOLDEN_AXE)
             .name("${FLMS_ORANGE}FLMS Wand")
-            .lore("${FLMS_YELLOW}Hold and right-click to use!)")
+            .lore("${FLMS_YELLOW}Hold and right-click to use!")
             .unbreakable(true)
             .glow(true)
             .flag(*ItemFlag.entries.toTypedArray())
@@ -177,9 +177,7 @@ class ItemLibrary(plugin: FLMS) {
         }
 
         fun hasEff(item: ItemStack): Boolean {
-            if (item.type.isAir)
-                return false
-            return item.itemMeta.persistentDataContainer.has(effKey)
+            return !item.type.isAir && item.itemMeta.persistentDataContainer.has(effKey)
         }
 
         fun level(item: ItemStack): Short {

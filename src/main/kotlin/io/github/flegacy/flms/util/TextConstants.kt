@@ -12,13 +12,13 @@ const val FLMS_LIGHT_RED = "<#ffd4d4>"
 const val FLMS_WHITE = "<#e4f0ef>"
 const val FLMS_GRAY = "<#898f8e>"
 
-const val ERROR_COMMAND_CONSOLE = "You must be in-game to use this comand."
+const val ERROR_COMMAND_CONSOLE = "You must be in-game to use this command."
 const val ERROR_INVENTORY_FULL = "Your inventory is too full to do this!"
 const val ERROR_EMPTY_HAND = "You need to hold an item to do this."
 
 fun msgFormat(msg: String): Component = MiniMessage.miniMessage().deserialize(msg)
 
-fun msgList(vararg msgs: String): List<Component> = msgs.map { msgFormat(it) }
+fun msgList(vararg msg: String): List<Component> = msg.map { msgFormat(it) }
 
 fun prefixed(msg: String): Component = msgFormat("$FLMS_YELLOW<b>FLMS</b> <dark_gray>| $FLMS_LIGHT_YELLOW$msg")
 

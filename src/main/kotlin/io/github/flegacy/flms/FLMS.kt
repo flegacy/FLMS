@@ -2,6 +2,7 @@ package io.github.flegacy.flms
 
 import io.github.flegacy.flms.command.FLMSCommand
 import io.github.flegacy.flms.data.ConfigurationValues
+import io.github.flegacy.flms.data.DataHandler
 import io.github.flegacy.flms.items.ItemLibrary
 import io.github.flegacy.flms.mining.MineListener
 import io.github.flegacy.flms.mining.MineManager
@@ -20,17 +21,20 @@ class FLMS: JavaPlugin() {
     private var registry: FLMSRegistry? = null
     private var mineManager: MineManager? = null
 
+    private var dataHandler: DataHandler? = null
+
     override fun onEnable() {
 
-        if (dataFolder.exists())
-            dataFolder.createNewFile()
+        if (dataFolder.exists()) dataFolder.createNewFile()
 
         saveDefaultConfig()
         config.options().copyDefaults(true)
 
+        dataHandler = DataHandler(this)
+        registry = FLMSRegistry(this, dataHandler!!)
+
         itemLib = ItemLibrary(this)
         configValues = ConfigurationValues(this)
-        registry = FLMSRegistry(this)
         mineManager = MineManager(this)
 
         val manager = server.pluginManager
@@ -45,6 +49,7 @@ class FLMS: JavaPlugin() {
     }
 
     override fun onDisable() {
+
         componentLogger.info("Successfully disabled. Goodbye!")
     }
 

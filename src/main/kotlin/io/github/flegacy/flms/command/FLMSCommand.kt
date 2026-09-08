@@ -11,7 +11,6 @@ import io.github.flegacy.flms.command.branch.TestCommandBranch
 import io.github.flegacy.flms.command.branch.WandCommandBranch
 import io.papermc.paper.command.brigadier.CommandSourceStack
 import io.papermc.paper.command.brigadier.Commands
-import org.bukkit.command.defaults.ReloadCommand
 
 private const val ROOT_LITERAL = "flms"
 // TODO see if permissions are working properly
@@ -23,6 +22,7 @@ class FLMSCommand(plugin: FLMS) {
         WandCommandBranch(plugin),
         EnchantCommandBranch(plugin),
         ReloadCommandBranch(plugin),
+        
         TestCommandBranch(plugin),
         EffectCommandBranch(plugin)
     )

@@ -1,18 +1,26 @@
 package io.github.flegacy.flms.registry
 
 import io.github.flegacy.flms.FLMS
+import io.github.flegacy.flms.data.DataHandler
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import java.util.UUID
 
-class FLMSRegistry(private val plugin: FLMS) {
+class FLMSRegistry(private val plugin: FLMS, private val dataHandler: DataHandler) {
 
     private val blocks = mutableMapOf<Material, RegisteredBlock>()
     private val tools = mutableMapOf<UUID, RegisteredTool>()
     private val effects = mutableMapOf<UUID, EffectProfile>()
 
+    init {
+        for ((key, value) in dataHandler.readBlocks()) 
+            blocks[key] = value
+    }
+
+
     fun register(block: RegisteredBlock) {
         blocks[block.type] = block
+        dataHandler.writeBlock(block)
     }
 
     fun remove(block: RegisteredBlock) {
