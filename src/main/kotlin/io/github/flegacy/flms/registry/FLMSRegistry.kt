@@ -20,11 +20,12 @@ class FLMSRegistry(private val plugin: FLMS, private val dataHandler: DataHandle
 
     fun register(block: RegisteredBlock) {
         blocks[block.type] = block
-        dataHandler.writeBlock(block)
+        dataHandler.write(block)
     }
 
     fun remove(block: RegisteredBlock) {
         blocks.remove(block.type)
+        dataHandler.unwrite(block)
     }
     
     fun register(tool: RegisteredTool) {
@@ -46,4 +47,8 @@ class FLMSRegistry(private val plugin: FLMS, private val dataHandler: DataHandle
     }
 
     fun findBlock(blockType: Material): RegisteredBlock? = blocks[blockType]
+
+    fun blocks(): MutableCollection<RegisteredBlock> {
+        return blocks.values
+    }
 }

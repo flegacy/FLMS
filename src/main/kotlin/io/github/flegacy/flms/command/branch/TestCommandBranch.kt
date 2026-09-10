@@ -4,11 +4,18 @@ import com.mojang.brigadier.Command
 import com.mojang.brigadier.builder.LiteralArgumentBuilder
 import io.github.flegacy.flms.FLMS
 import io.github.flegacy.flms.registry.RegisteredBlock
+import io.github.flegacy.flms.ui.BookInterface
+import io.github.flegacy.flms.ui.element.InterfaceElement
 import io.github.flegacy.flms.util.resolveName
 import io.papermc.paper.command.brigadier.CommandSourceStack
 import io.papermc.paper.command.brigadier.Commands
+import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
 import org.bukkit.Material
+import org.bukkit.entity.Player
+import org.bukkit.event.inventory.InventoryClickEvent
+import org.bukkit.inventory.ItemStack
+import kotlin.random.Random
 
 private const val BRANCH_LITERAL = "test"
 
@@ -22,17 +29,6 @@ class TestCommandBranch(private val plugin: FLMS): CommandBranch {
 
     private fun executeTest(source: CommandSourceStack): Int {
 
-        val block = plugin.registry().findBlock(Material.DIAMOND_BLOCK) ?: return 0
-        val p = source.sender
-        p.sendMessage(block.name)
-        p.sendMessage(block.type.toString())
-        p.sendMessage(block.hardness.toString())
-        p.sendMessage(block.postType.toString())
-        p.sendMessage(block.drops.toString())
-        p.sendMessage(block.xp.toString())
-
-
         return Command.SINGLE_SUCCESS
     }
-
 }

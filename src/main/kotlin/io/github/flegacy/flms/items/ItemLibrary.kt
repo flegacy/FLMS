@@ -43,7 +43,9 @@ class ItemLibrary(plugin: FLMS) {
             .glow(true)
             .flag(*ItemFlag.entries.toTypedArray())
             .build()
-        wand.itemMeta.persistentDataContainer.set(itemKey, PersistentDataType.STRING, FLMS_WAND_TAG)
+        val meta = wand.itemMeta
+        meta.persistentDataContainer.set(itemKey, PersistentDataType.STRING, FLMS_WAND_TAG)
+        wand.itemMeta = meta
         return wand
     }
 

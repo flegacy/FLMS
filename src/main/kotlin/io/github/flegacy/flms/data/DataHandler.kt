@@ -117,7 +117,8 @@ class DataHandler(private val plugin: FLMS) {
     }
 
     // TODO test further when GUI is created, to make sure that setting blocks works while multiple blocks are already written
-    fun writeBlock(block: RegisteredBlock) {
+    // also everything else like removal
+    fun write(block: RegisteredBlock) {
         blocksFile.setWritable(true)
         val blocksYaml = YamlConfiguration.loadConfiguration(blocksFile)
         val blocksYamlSection = blocksYaml.getConfigurationSection(BLOCKS_CONFIG_SECTION)
@@ -131,8 +132,25 @@ class DataHandler(private val plugin: FLMS) {
         blocksFile.setReadOnly()
     }
 
+    fun unwrite(block: RegisteredBlock) {
+        blocksFile.setWritable(true)
+        val blocksYaml = YamlConfiguration.loadConfiguration(blocksFile)
+        val blocksYamlSection = blocksYaml.getConfigurationSection(BLOCKS_CONFIG_SECTION)
 
-    fun writeEffectProfile(profile: EffectProfile) {
+        if (blocksYamlSection == null) {
+            plugin.componentLogger.error("There is a formatting error in the blocks.yml data file. Failed to save data for this block.")
+            throw IOException("Couldn't write block config data, 'blocks' section is missing.")
+            return
+        }
+
+        blocksYamlSection.set(block.type.toString(), null)
+        blocksYaml.save(blocksFile)
+        blocksFile.setReadOnly()
+    }
+
+
+
+    fun write(profile: EffectProfile) {
 
     }
 

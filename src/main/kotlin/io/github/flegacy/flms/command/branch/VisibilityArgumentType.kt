@@ -35,6 +35,7 @@ class VisibilityArgumentType: CustomArgumentType.Converted<Visibility, String> {
         }
     }
 
+
     override fun <S : Any> listSuggestions(
         context: CommandContext<S>,
         builder: SuggestionsBuilder
