@@ -1,6 +1,7 @@
 package io.github.flegacy.flms
 
 import io.github.flegacy.flms.command.FLMSCommand
+import io.github.flegacy.flms.config.InputDeviceListener
 import io.github.flegacy.flms.config.WandListener
 import io.github.flegacy.flms.data.ConfigurationValues
 import io.github.flegacy.flms.data.DataHandler
@@ -16,16 +17,14 @@ import org.bukkit.plugin.java.JavaPlugin
 const val FLMS_PERMISSION = "flms.admin"
 const val COMMAND_DESCRIPTION = "All-in-one command for FLMS."
 
-// TODO GET RID OF ALL THE UNSIGNED NUMBERS PLEASE
-
 class FLMS : JavaPlugin() {
 
     private var itemLib: ItemLibrary? = null
     private var configValues: ConfigurationValues? = null
     private var registry: FLMSRegistry? = null
     private var mineManager: MineManager? = null
-
     private var dataHandler: DataHandler? = null
+    private var inputDeviceListener: InputDeviceListener? = null
 
     override fun onEnable() {
 
@@ -40,12 +39,14 @@ class FLMS : JavaPlugin() {
         itemLib = ItemLibrary(this)
         configValues = ConfigurationValues(this)
         mineManager = MineManager(this)
+        inputDeviceListener = InputDeviceListener(this)
 
         val manager = server.pluginManager
         manager.registerEvents(WorldProtectionListener(this), this)
         manager.registerEvents(MineListener(this), this)
         manager.registerEvents(InventoryListener(), this)
         manager.registerEvents(WandListener(this), this)
+        manager.registerEvents(inputDeviceListener!!, this)
 
         lifecycleManager.registerEventHandler(LifecycleEvents.COMMANDS) { event ->
             event.registrar().register(FLMSCommand(this).buildCommandNode(), COMMAND_DESCRIPTION)
@@ -73,5 +74,9 @@ class FLMS : JavaPlugin() {
 
     fun mineManager(): MineManager {
         return mineManager!!
+    }
+
+    fun inputDeviceListener(): InputDeviceListener {
+        return inputDeviceListener!!
     }
 }

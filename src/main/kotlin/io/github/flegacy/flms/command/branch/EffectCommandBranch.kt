@@ -79,9 +79,9 @@ class EffectCommandBranch(private val plugin: FLMS) : CommandBranch {
         val setLevel = context.getArgument("level", Int::class.java)
 
         if (effect == EffectType.HASTE)
-            profile.haste = setLevel.toUShort()
+            profile.haste = setLevel.toShort()
         else
-            profile.fatigue = setLevel.toUShort()
+            profile.fatigue = setLevel.toShort()
 
         if (msg)
             context.source.sender.sendMessage(prefixed("${FLMS_YELLOW}${resolveName(effect)} $setLevel$FLMS_LIGHT_YELLOW was given to ${FLMS_YELLOW}${player.name}${FLMS_LIGHT_YELLOW}."))
@@ -109,9 +109,9 @@ class EffectCommandBranch(private val plugin: FLMS) : CommandBranch {
         val profile = plugin.registry().findEffectProfile(player)
 
         if (effect == EffectType.HASTE)
-            profile.haste = 0u
+            profile.haste = 0
         else
-            profile.fatigue = 0u
+            profile.fatigue = 0
 
         if (msg)
             context.source.sender.sendMessage(prefixed("You removed ${FLMS_YELLOW}${resolveName(effect)}${FLMS_LIGHT_YELLOW} from ${FLMS_YELLOW}${player.name}${FLMS_LIGHT_YELLOW}."))

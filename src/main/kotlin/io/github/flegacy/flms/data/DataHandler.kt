@@ -73,12 +73,7 @@ class DataHandler(private val plugin: FLMS) {
         val blocksYaml = YamlConfiguration.loadConfiguration(blocksFile)
         // TODO versioning when needed
         val blocksSection = blocksYaml.getConfigurationSection(BLOCKS_CONFIG_SECTION)
-
-        if (blocksSection == null) {
-            plugin.componentLogger.error("There is a formatting error in the blocks.yml data file. Failed to save data for this block.")
-            throw IOException("Couldn't write block config data, 'blocks' section is missing.")
-            return emptyMap()
-        }
+            ?: throw IOException("Couldn't write block config data, 'blocks' section is missing. Data won't be loaded for this session!")
 
         val map = mutableMapOf<Material, RegisteredBlock>()
 
@@ -95,7 +90,7 @@ class DataHandler(private val plugin: FLMS) {
                     continue
                 }
 
-                val block = RegisteredBlock.deserialize(blockType, attemptedBlock)
+                val block = RegisteredBlock.deserialize(plugin, blockType, attemptedBlock)
                 if (block == null) {
                     plugin.componentLogger.error("Failed to recognize and load block '${blockType}'. Avoid changing any FLMS files other than config.yml.")
                     continue
@@ -125,7 +120,6 @@ class DataHandler(private val plugin: FLMS) {
         if (blocksYamlSection == null) {
             plugin.componentLogger.error("There is a formatting error in the blocks.yml data file. Failed to save data for this block.")
             throw IOException("Couldn't write block config data, 'blocks' section is missing.")
-            return
         }
         blocksYamlSection.set(block.type.toString(), block.serialize())
         blocksYaml.save(blocksFile)
@@ -136,12 +130,7 @@ class DataHandler(private val plugin: FLMS) {
         blocksFile.setWritable(true)
         val blocksYaml = YamlConfiguration.loadConfiguration(blocksFile)
         val blocksYamlSection = blocksYaml.getConfigurationSection(BLOCKS_CONFIG_SECTION)
-
-        if (blocksYamlSection == null) {
-            plugin.componentLogger.error("There is a formatting error in the blocks.yml data file. Failed to save data for this block.")
-            throw IOException("Couldn't write block config data, 'blocks' section is missing.")
-            return
-        }
+            ?: throw IOException("Couldn't write block config data, 'blocks' section is missing. Data won't be saved for this session!")
 
         blocksYamlSection.set(block.type.toString(), null)
         blocksYaml.save(blocksFile)

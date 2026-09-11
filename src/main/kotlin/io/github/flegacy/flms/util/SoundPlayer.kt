@@ -24,14 +24,35 @@ fun soundBook(player: Player) =
 fun soundDelay(player: Player) =
     player.playSound(player.location, Sound.ENTITY_ENDERMAN_TELEPORT, SoundCategory.UI, 1f, 1f)
 
+fun soundDestroy(player: Player) =
+    player.playSound(player.location, Sound.ENTITY_GENERIC_EXPLODE, SoundCategory.UI, 1f, 1f)
+
+fun soundRequest(player: Player) =
+    player.playSound(player.location, Sound.ENTITY_VILLAGER_TRADE, SoundCategory.UI, 1f, 1f)
+
+fun soundWuss(player: Player) =
+    player.playSound(player.location, Sound.ENTITY_BABY_CAT_PURREOW, SoundCategory.UI, 1f, 2f)
+
+fun soundSuccess(player: Player, plugin: FLMS) {
+    player.playSound(player.location, Sound.ENTITY_VILLAGER_CELEBRATE, SoundCategory.UI, 1f, 1f)
+    object: BukkitRunnable() {
+        override fun run() {
+            player.playSound(player.location, Sound.ENTITY_FIREWORK_ROCKET_BLAST, SoundCategory.UI, 1f, 1f)
+        }
+    }.runTaskLater(plugin, 15)
+}
+
 fun soundWandOpen(player: Player, plugin: FLMS) {
     object : BukkitRunnable() {
         var pitch = 0f
         override fun run() {
-            player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_BIT, SoundCategory.UI, 1f, pitch)
+            player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_HARP, SoundCategory.UI, 1f, pitch)
             pitch++
-            if (pitch == 3f)
+            if (pitch == 2f)
+                player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_BASS, SoundCategory.UI, 1f, 1f)
+            if (pitch == 3f) {
                 cancel()
+            }
         }
-    }.runTaskTimer(plugin, 0, 2)
+    }.runTaskTimer(plugin, 0, 1)
 }

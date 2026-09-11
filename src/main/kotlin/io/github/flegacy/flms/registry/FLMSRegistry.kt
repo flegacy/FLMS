@@ -38,7 +38,7 @@ class FLMSRegistry(private val plugin: FLMS, private val dataHandler: DataHandle
 
     fun ensureEffectProfile(player: Player) {
         if (!effects.containsKey(player.uniqueId))
-            effects[player.uniqueId] = EffectProfile(0u, 0u)
+            effects[player.uniqueId] = EffectProfile(0, 0)
     }
 
     fun findEffectProfile(player: Player): EffectProfile {

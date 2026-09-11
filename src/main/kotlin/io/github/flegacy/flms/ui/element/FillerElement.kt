@@ -1,12 +1,13 @@
 package io.github.flegacy.flms.ui.element
 
 import io.github.flegacy.flms.FLMS
+import io.github.flegacy.flms.items.ItemLibrary
 import org.bukkit.inventory.ItemStack
 
-class FillerElement(private val plugin: FLMS): InterfaceElement {
+class FillerElement: InterfaceElement {
 
     override fun getDisplay(): ItemStack {
-        return plugin.itemLib().emptyGlass()
+        return ItemLibrary.FILLER
     }
 
 }

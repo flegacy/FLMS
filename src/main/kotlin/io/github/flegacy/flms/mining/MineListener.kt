@@ -39,7 +39,7 @@ class MineListener(private val plugin: FLMS): Listener {
         applyEffects(event.player)
     }
 
-    // Apply effects for world switching and other occurances where the player would lose the effects.
+    // Apply effects for world switching and other occurrences where the player would lose the effects.
     @EventHandler
     fun onRespawn(event: PlayerRespawnEvent) {
         plugin.server.scheduler.runTaskLater(plugin, {task -> run {
@@ -61,7 +61,7 @@ class MineListener(private val plugin: FLMS): Listener {
         if (player.gameMode != GameMode.SURVIVAL)
             return
         val block = plugin.registry().findBlock(event.block.type) ?: return
-        val interval = if (event.block.type.hardness == 0f) 0u else 3u
+        val interval = if (event.block.type.hardness == 0f) 0 else 3
 
         if (manager.hasTask(player)) {
             plugin.componentLogger.warn("Can't start mining task for '${player.name}, they are already mining.")

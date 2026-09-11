@@ -22,7 +22,7 @@ class MineManager(private val plugin: FLMS) {
         return ids[player.uniqueId]!!
     }
 
-    fun startTask(player: Player, interval: UInt, location: Location, block: RegisteredBlock) {
+    fun startTask(player: Player, interval: Int, location: Location, block: RegisteredBlock) {
         require(!hasTask(player))
 
         val task = MineTask(plugin, this, player, interval, location, block)

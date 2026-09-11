@@ -9,8 +9,9 @@ class InventoryListener: Listener {
 
     @EventHandler
     fun onInventoryClick(event: InventoryClickEvent) {
-        val clickedItem = event.currentItem ?: return
-        if (event.inventory.holder !is FLMSInterface)
+        if ((event.clickedInventory ?: return) != event.view.topInventory)
+            return
+        if (event.view.topInventory.holder !is FLMSInterface)
             return
         event.isCancelled = true
         val openInterface = event.inventory.holder as FLMSInterface

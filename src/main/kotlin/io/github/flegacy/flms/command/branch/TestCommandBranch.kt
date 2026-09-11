@@ -3,19 +3,10 @@ package io.github.flegacy.flms.command.branch
 import com.mojang.brigadier.Command
 import com.mojang.brigadier.builder.LiteralArgumentBuilder
 import io.github.flegacy.flms.FLMS
-import io.github.flegacy.flms.registry.RegisteredBlock
-import io.github.flegacy.flms.ui.BookInterface
-import io.github.flegacy.flms.ui.element.InterfaceElement
-import io.github.flegacy.flms.util.resolveName
+import io.github.flegacy.flms.util.soundSuccess
 import io.papermc.paper.command.brigadier.CommandSourceStack
 import io.papermc.paper.command.brigadier.Commands
-import net.kyori.adventure.text.Component
-import org.bukkit.Bukkit
-import org.bukkit.Material
 import org.bukkit.entity.Player
-import org.bukkit.event.inventory.InventoryClickEvent
-import org.bukkit.inventory.ItemStack
-import kotlin.random.Random
 
 private const val BRANCH_LITERAL = "test"
 
@@ -28,7 +19,7 @@ class TestCommandBranch(private val plugin: FLMS): CommandBranch {
     }
 
     private fun executeTest(source: CommandSourceStack): Int {
-
+        soundSuccess(source.sender as? Player ?: return 0, plugin)
         return Command.SINGLE_SUCCESS
     }
 }

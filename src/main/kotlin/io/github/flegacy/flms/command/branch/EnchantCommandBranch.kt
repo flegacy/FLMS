@@ -5,6 +5,7 @@ import com.mojang.brigadier.arguments.BoolArgumentType
 import com.mojang.brigadier.arguments.IntegerArgumentType
 import com.mojang.brigadier.builder.LiteralArgumentBuilder
 import io.github.flegacy.flms.FLMS
+import io.github.flegacy.flms.items.ItemLibrary
 import io.github.flegacy.flms.util.*
 import io.papermc.paper.command.brigadier.CommandSourceStack
 import io.papermc.paper.command.brigadier.Commands
@@ -65,7 +66,7 @@ class EnchantCommandBranch(private val plugin: FLMS) : CommandBranch {
         
         val player = source.sender as Player
         val held = player.inventory.itemInMainHand
-        val level = intLevel.toUShort()
+        val level = intLevel.toShort()
         // Brigadier should guarantee the input level being positive and between or equal to 1 and 255
         
         val visMsg = 
@@ -90,7 +91,7 @@ class EnchantCommandBranch(private val plugin: FLMS) : CommandBranch {
             return 0
         }
 
-        plugin.itemLib().enchanter.effApply(held, 0.toUShort(), false)
+        plugin.itemLib().enchanter.effApply(held, 0.toShort(), false)
         player.sendMessage(prefixed("Removed FLMS efficiency from your held item."))
         return Command.SINGLE_SUCCESS
     }

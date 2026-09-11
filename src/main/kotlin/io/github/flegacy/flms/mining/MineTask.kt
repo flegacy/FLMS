@@ -19,7 +19,7 @@ class MineTask(
     private val plugin: FLMS,
     private val manager: MineManager,
     private val player: Player,
-    private val interval: UInt,
+    private val interval: Int,
     private val location: Location,
     private val block: RegisteredBlock
 ) {
@@ -34,7 +34,7 @@ class MineTask(
     }
 
     private fun prepare() {
-        if (interval == 0u)
+        if (interval == 0)
             return
         // Player-unique entity id
         packet.integers.write(0, plugin.mineManager().getID(player))
@@ -53,10 +53,10 @@ class MineTask(
         val originalType = block.type
 
         val event = FLMSBlockBreakEvent(original, player)
-        event.expToDrop = block.xp.toInt()
+        event.expToDrop = block.xp
         event.isDropItems = true
         plugin.server.pluginManager.callEvent(event)
-        // TODO notify user of the nature of block drops. they should be able to configure it as normally thansk to the custom event
+        // TODO notify user of the nature of block drops. they should be able to configure it as normally thanks to the custom event
 
         plugin.server.scheduler.runTaskLater(plugin, { task -> run {
 
@@ -95,15 +95,15 @@ class MineTask(
             held.damage(1, player)
 
         original.world.spawn(original.location, ExperienceOrb::class.java) {
-            val xp = if (block.xp > 1u) block.xp / 2u else block.xp
-            val count = if (xp > 1u) 2 else 1
-            it.experience = xp.toInt()
+            val xp = if (block.xp > 1) block.xp / 2 else block.xp
+            val count = if (xp > 1) 2 else 1
+            it.experience = xp
             it.count = count
         }
         
-        // Go through all scenerios of this
+        // Go through all scenarios of this
         val next = plugin.registry().findBlock(block.postType) ?: return
-        val newInterval = if (next.hardness == 0.toUShort()) 0u else 3u
+        val newInterval = if (next.hardness == 0f) 0u else 3u
         if (!plugin.mineManager().hasTask(player) && next.type.hardness != 0f)
             // TODO a NEW interval should be generated here
             plugin.mineManager().startTask(player, interval, location, next)
@@ -112,7 +112,7 @@ class MineTask(
     fun cycle() {
         if (!active)
             return
-        if (interval == 0u || stage == 10) {
+        if (interval == 0 || stage == 10) {
             finish()
             return
         }
