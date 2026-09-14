@@ -84,7 +84,7 @@ class DataHandler(private val plugin: FLMS) {
 
                 val memSection = value as MemorySection
                 val attemptedBlock = memSection.getValues(false) as HashMap
-                
+
                 if (attemptedBlock.isEmpty()) {
                     plugin.componentLogger.error("Failed to recognize and load block '${blockType}'. Avoid changing any FLMS files other than config.yml.")
                     continue
@@ -136,7 +136,6 @@ class DataHandler(private val plugin: FLMS) {
         blocksYaml.save(blocksFile)
         blocksFile.setReadOnly()
     }
-
 
 
     fun write(profile: EffectProfile) {

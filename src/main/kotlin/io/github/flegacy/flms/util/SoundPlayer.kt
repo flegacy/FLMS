@@ -25,7 +25,7 @@ fun soundDelay(player: Player) =
     player.playSound(player.location, Sound.ENTITY_ENDERMAN_TELEPORT, SoundCategory.UI, 1f, 1f)
 
 fun soundDestroy(player: Player) =
-    player.playSound(player.location, Sound.ENTITY_GENERIC_EXPLODE, SoundCategory.UI, 1f, 1f)
+    player.playSound(player.location, Sound.ENTITY_GENERIC_EXPLODE, SoundCategory.UI, 0.75f, 1f)
 
 fun soundRequest(player: Player) =
     player.playSound(player.location, Sound.ENTITY_VILLAGER_TRADE, SoundCategory.UI, 1f, 1f)
@@ -33,9 +33,12 @@ fun soundRequest(player: Player) =
 fun soundWuss(player: Player) =
     player.playSound(player.location, Sound.ENTITY_BABY_CAT_PURREOW, SoundCategory.UI, 1f, 2f)
 
+fun soundPiston(player: Player) =
+    player.playSound(player.location, Sound.BLOCK_PISTON_EXTEND, SoundCategory.UI, 1f, 1f)
+
 fun soundSuccess(player: Player, plugin: FLMS) {
     player.playSound(player.location, Sound.ENTITY_VILLAGER_CELEBRATE, SoundCategory.UI, 1f, 1f)
-    object: BukkitRunnable() {
+    object : BukkitRunnable() {
         override fun run() {
             player.playSound(player.location, Sound.ENTITY_FIREWORK_ROCKET_BLAST, SoundCategory.UI, 1f, 1f)
         }

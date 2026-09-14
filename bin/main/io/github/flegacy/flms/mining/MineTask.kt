@@ -8,20 +8,18 @@ import io.github.flegacy.flms.data.Key
 import io.github.flegacy.flms.registry.RegisteredBlock
 import io.github.flegacy.flms.util.msgFormat
 import io.github.flegacy.flms.util.soundError
-import net.kyori.adventure.chat.ChatType
 import org.bukkit.Effect
 import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.block.Block
 import org.bukkit.entity.ExperienceOrb
 import org.bukkit.entity.Player
-import org.bukkit.scheduler.BukkitRunnable
 
 class MineTask(
     private val plugin: FLMS,
     private val manager: MineManager,
     private val player: Player,
-    private val interval: UInt,
+    private val interval: Int,
     private val location: Location,
     private val block: RegisteredBlock
 ) {
@@ -36,7 +34,7 @@ class MineTask(
     }
 
     private fun prepare() {
-        if (interval == 0u)
+        if (interval == 0)
             return
         // Player-unique entity id
         packet.integers.write(0, plugin.mineManager().getID(player))
@@ -55,30 +53,32 @@ class MineTask(
         val originalType = block.type
 
         val event = FLMSBlockBreakEvent(original, player)
-        event.expToDrop = block.xp.toInt()
+        event.expToDrop = block.xp
         event.isDropItems = true
         plugin.server.pluginManager.callEvent(event)
-        // TODO notify user of the nature of block drops. they should be able to configure it as normally thansk to the custom event
+        // TODO notify user of the nature of block drops. they should be able to configure it as normally thanks to the custom event
 
-        plugin.server.scheduler.runTaskLater(plugin, { task -> run {
+        plugin.server.scheduler.runTaskLater(plugin, { task ->
+            run {
 
-            if (event.isCancelled) {
-                if (plugin.cfgVals().boolean(Key.BLOCK_BREAK_FAILURE_SOUND))
-                    soundError(player)
-                val msg = plugin.cfgVals().string(Key.BLOCK_BREAK_DENIAL_MESSAGE)
-                val msgLocation = plugin.cfgVals().string(Key.BLOCK_BREAK_DENIAL_LOCATION)
+                if (event.isCancelled) {
+                    if (plugin.configValues().boolean(Key.BLOCK_BREAK_FAILURE_SOUND))
+                        soundError(player)
+                    val msg = plugin.configValues().string(Key.BLOCK_BREAK_DENIAL_MESSAGE)
+                    val msgLocation = plugin.configValues().string(Key.BLOCK_BREAK_DENIAL_LOCATION)
 
-                if (msgLocation.equals("chat", true))
-                    player.sendMessage(msgFormat(msg))
-                else if (msgLocation.equals("actionbar", true))
-                    player.sendActionBar(msgFormat(msg))
+                    if (msgLocation.equals("chat", true))
+                        player.sendMessage(msgFormat(msg))
+                    else if (msgLocation.equals("actionbar", true))
+                        player.sendActionBar(msgFormat(msg))
 
-                if (block.type.hardness == 0f)
-                    original.setType(originalType, false)
-            } else
-                fullBreak(original, originalType)
+                    if (block.type.hardness == 0f)
+                        original.setType(originalType, false)
+                } else
+                    fullBreak(original, originalType)
 
-        } }, 1)
+            }
+        }, 1)
 
         plugin.mineManager().wipeTag(player)
     }
@@ -86,7 +86,7 @@ class MineTask(
     private fun fullBreak(original: Block, originalType: Material) {
         player.world.playEffect(original.location, Effect.DESTROY_BLOCK, originalType.createBlockData())
 
-        val update = plugin.cfgVals().boolean(Key.BLOCK_BREAKING_UPDATES)
+        val update = plugin.configValues().boolean(Key.BLOCK_BREAKING_UPDATES)
         original.setType(block.postType, update)
 
         block.drops.forEach { drop -> original.world.dropItemNaturally(original.location, drop) }
@@ -97,24 +97,24 @@ class MineTask(
             held.damage(1, player)
 
         original.world.spawn(original.location, ExperienceOrb::class.java) {
-            val xp = if (block.xp > 1u) block.xp / 2u else block.xp
-            val count = if (xp > 1u) 2 else 1
-            it.experience = xp.toInt()
+            val xp = if (block.xp > 1) block.xp / 2 else block.xp
+            val count = if (xp > 1) 2 else 1
+            it.experience = xp
             it.count = count
         }
-        
-        // Go through all scenerios of this
+
+        // Go through all scenarios of this
         val next = plugin.registry().findBlock(block.postType) ?: return
-        val newInterval = if (next.hardness == 0.toUShort()) 0u else 3u
+        val newInterval = if (next.hardness == 0f) 0u else 3u
         if (!plugin.mineManager().hasTask(player) && next.type.hardness != 0f)
-            // TODO a NEW interval should be generated here
+        // TODO a NEW interval should be generated here
             plugin.mineManager().startTask(player, interval, location, next)
     }
 
     fun cycle() {
         if (!active)
             return
-        if (interval == 0u || stage == 10) {
+        if (interval == 0 || stage == 10) {
             finish()
             return
         }

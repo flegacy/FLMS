@@ -1,23 +1,19 @@
 package io.github.flegacy.flms.command.branch
 
 import com.mojang.brigadier.Command
-import com.mojang.brigadier.arguments.BoolArgumentType
 import com.mojang.brigadier.arguments.IntegerArgumentType
-import com.mojang.brigadier.builder.LiteralArgumentBuilder import io.github.flegacy.flms.FLMS import io.github.flegacy.flms.util.ERROR_COMMAND_CONSOLE import io.github.flegacy.flms.util.ERROR_EMPTY_HAND
-import io.github.flegacy.flms.util.FLMS_LIGHT_YELLOW
-import io.github.flegacy.flms.util.FLMS_YELLOW
-import io.github.flegacy.flms.util.errPrefixed
-import io.github.flegacy.flms.util.prefixed
-import io.github.flegacy.flms.util.soundEnchant
-import io.github.flegacy.flms.util.soundError
+import com.mojang.brigadier.builder.LiteralArgumentBuilder
+import io.github.flegacy.flms.FLMS
+import io.github.flegacy.flms.util.*
 import io.papermc.paper.command.brigadier.CommandSourceStack
 import io.papermc.paper.command.brigadier.Commands
-import net.kyori.adventure.text.Component
 import org.bukkit.entity.Player
 
 private const val BRANCH_LITERAL = "efficiency"
 
 class EnchantCommandBranch(private val plugin: FLMS) : CommandBranch {
+
+    // TODO add system to set enchants for others, so the command can be automated.
 
     override fun buildCommandTree(): LiteralArgumentBuilder<CommandSourceStack> {
         return Commands.literal(BRANCH_LITERAL)
@@ -32,12 +28,12 @@ class EnchantCommandBranch(private val plugin: FLMS) : CommandBranch {
                     .then(
                         Commands.argument("level", IntegerArgumentType.integer(1, 255))
                             .then(
-                                Commands.argument("visible", BoolArgumentType.bool())
+                                Commands.argument("visible", VisibilityArgumentType())
                                     .executes { ctx ->
                                         effSet(
                                             ctx.source,
                                             ctx.getArgument("level", Int::class.java),
-                                            ctx.getArgument("visible", Boolean::class.java)
+                                            ctx.getArgument("visible", Visibility::class.java).bool
                                         )
                                     })
                     )
@@ -52,7 +48,7 @@ class EnchantCommandBranch(private val plugin: FLMS) : CommandBranch {
         val held = player.inventory.itemInMainHand
         val level = plugin.itemLib().enchanter.level(held)
 
-        val msg = 
+        val msg =
             if (level == 0.toShort())
                 prefixed("Your item isn't enchanted.")
             else
@@ -65,13 +61,13 @@ class EnchantCommandBranch(private val plugin: FLMS) : CommandBranch {
     private fun effSet(source: CommandSourceStack, intLevel: Int, visible: Boolean): Int {
         if (!checkEligible(source))
             return 0
-        
+
         val player = source.sender as Player
         val held = player.inventory.itemInMainHand
-        val level = intLevel.toUShort()
+        val level = intLevel.toShort()
         // Brigadier should guarantee the input level being positive and between or equal to 1 and 255
-        
-        val visMsg = 
+
+        val visMsg =
             if (visible)
                 "and it's showing!"
             else
@@ -93,7 +89,7 @@ class EnchantCommandBranch(private val plugin: FLMS) : CommandBranch {
             return 0
         }
 
-        plugin.itemLib().enchanter.effApply(held, 0.toUShort(), false)
+        plugin.itemLib().enchanter.effApply(held, 0.toShort(), false)
         player.sendMessage(prefixed("Removed FLMS efficiency from your held item."))
         return Command.SINGLE_SUCCESS
     }

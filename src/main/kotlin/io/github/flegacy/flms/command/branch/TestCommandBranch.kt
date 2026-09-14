@@ -10,10 +10,10 @@ import org.bukkit.entity.Player
 
 private const val BRANCH_LITERAL = "test"
 
-class TestCommandBranch(private val plugin: FLMS): CommandBranch {
+class TestCommandBranch(private val plugin: FLMS) : CommandBranch {
 
     override fun buildCommandTree(): LiteralArgumentBuilder<CommandSourceStack> {
-        
+
         return Commands.literal(BRANCH_LITERAL)
             .executes { ctx -> executeTest(ctx.source) }
     }

@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerRespawnEvent
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 
-class MineListener(private val plugin: FLMS): Listener {
+class MineListener(private val plugin: FLMS) : Listener {
 
     private val manager = plugin.mineManager()
 
@@ -42,10 +42,12 @@ class MineListener(private val plugin: FLMS): Listener {
     // Apply effects for world switching and other occurrences where the player would lose the effects.
     @EventHandler
     fun onRespawn(event: PlayerRespawnEvent) {
-        plugin.server.scheduler.runTaskLater(plugin, {task -> run {
-            if (event.player.isOnline)
-                applyEffects(event.player)
-        }}, 1)
+        plugin.server.scheduler.runTaskLater(plugin, { task ->
+            run {
+                if (event.player.isOnline)
+                    applyEffects(event.player)
+            }
+        }, 1)
     }
 
     private fun applyEffects(player: Player) {
@@ -76,5 +78,5 @@ class MineListener(private val plugin: FLMS): Listener {
         if (manager.hasTask(player))
             manager.stopTask(player)
     }
-    
+
 }

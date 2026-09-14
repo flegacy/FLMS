@@ -6,7 +6,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockBreakEvent
 
-class WorldProtectionListener(private val plugin: FLMS): Listener {
+class WorldProtectionListener(private val plugin: FLMS) : Listener {
 
     @EventHandler
     fun onBlockBreak(event: BlockBreakEvent) {

@@ -3,18 +3,14 @@ package io.github.flegacy.flms.command.branch
 import com.mojang.brigadier.Command
 import com.mojang.brigadier.builder.LiteralArgumentBuilder
 import io.github.flegacy.flms.FLMS
-import io.github.flegacy.flms.util.ERROR_COMMAND_CONSOLE
-import io.github.flegacy.flms.util.ERROR_INVENTORY_FULL
-import io.github.flegacy.flms.util.errPrefixed
-import io.github.flegacy.flms.util.prefixed
-import io.github.flegacy.flms.util.soundPickup
+import io.github.flegacy.flms.util.*
 import io.papermc.paper.command.brigadier.CommandSourceStack
 import io.papermc.paper.command.brigadier.Commands
 import org.bukkit.entity.Player
 
 private const val BRANCH_LITERAL = "wand"
 
-class WandCommandBranch(private val plugin: FLMS): CommandBranch {
+class WandCommandBranch(private val plugin: FLMS) : CommandBranch {
 
     override fun buildCommandTree(): LiteralArgumentBuilder<CommandSourceStack> {
         return Commands.literal(BRANCH_LITERAL)

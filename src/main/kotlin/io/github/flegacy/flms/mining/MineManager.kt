@@ -4,7 +4,7 @@ import io.github.flegacy.flms.FLMS
 import io.github.flegacy.flms.registry.RegisteredBlock
 import org.bukkit.Location
 import org.bukkit.entity.Player
-import java.util.UUID
+import java.util.*
 import kotlin.random.Random
 
 class MineManager(private val plugin: FLMS) {

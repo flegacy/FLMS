@@ -1,11 +1,9 @@
 package io.github.flegacy.flms.command.branch
 
 import com.mojang.brigadier.Command
-import com.mojang.brigadier.arguments.BoolArgumentType
 import com.mojang.brigadier.arguments.IntegerArgumentType
 import com.mojang.brigadier.builder.LiteralArgumentBuilder
 import io.github.flegacy.flms.FLMS
-import io.github.flegacy.flms.items.ItemLibrary
 import io.github.flegacy.flms.util.*
 import io.papermc.paper.command.brigadier.CommandSourceStack
 import io.papermc.paper.command.brigadier.Commands
@@ -50,7 +48,7 @@ class EnchantCommandBranch(private val plugin: FLMS) : CommandBranch {
         val held = player.inventory.itemInMainHand
         val level = plugin.itemLib().enchanter.level(held)
 
-        val msg = 
+        val msg =
             if (level == 0.toShort())
                 prefixed("Your item isn't enchanted.")
             else
@@ -63,13 +61,13 @@ class EnchantCommandBranch(private val plugin: FLMS) : CommandBranch {
     private fun effSet(source: CommandSourceStack, intLevel: Int, visible: Boolean): Int {
         if (!checkEligible(source))
             return 0
-        
+
         val player = source.sender as Player
         val held = player.inventory.itemInMainHand
         val level = intLevel.toShort()
         // Brigadier should guarantee the input level being positive and between or equal to 1 and 255
-        
-        val visMsg = 
+
+        val visMsg =
             if (visible)
                 "and it's showing!"
             else

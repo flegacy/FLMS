@@ -22,19 +22,24 @@ class ConfigurationValues(private val plugin: FLMS) {
             require(match != null)
 
             if (!fileCfg.isSet(lowcase)) {
-                plugin.componentLogger.error(msgFormat(
-                    "Couldn't find value for '${lowcase}' in the config. Defaulting to '${match}<reset>'."
-                ))
+                plugin.componentLogger.error(
+                    msgFormat(
+                        "Couldn't find value for '${lowcase}' in the config. Defaulting to '${match}<reset>'."
+                    )
+                )
                 errors = true
                 opts[key] = key.default
                 continue
             }
 
             if ((key.isBoolean() && !fileCfg.isBoolean(lowcase))
-            || (key.isString() && !fileCfg.isString(lowcase))) {
-                plugin.componentLogger.error(msgFormat(
-                    "The value for '${lowcase}' in your config isn't the correct type. Defaulting to '${key.default}<reset>'."
-                ))
+                || (key.isString() && !fileCfg.isString(lowcase))
+            ) {
+                plugin.componentLogger.error(
+                    msgFormat(
+                        "The value for '${lowcase}' in your config isn't the correct type. Defaulting to '${key.default}<reset>'."
+                    )
+                )
                 errors = true
                 opts[key] = key.default
                 continue
@@ -61,8 +66,6 @@ class ConfigurationValues(private val plugin: FLMS) {
         require(key.isString())
         return opts[key] as String
     }
-
-    
 
 
 }

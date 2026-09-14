@@ -1,16 +1,7 @@
 package io.github.flegacy.flms.items
 
 import io.github.flegacy.flms.FLMS
-import io.github.flegacy.flms.util.FLMS_GRAY
-import io.github.flegacy.flms.util.FLMS_GREEN
-import io.github.flegacy.flms.util.FLMS_LIGHT_GREEN
-import io.github.flegacy.flms.util.FLMS_LIGHT_RED
-import io.github.flegacy.flms.util.FLMS_LIGHT_YELLOW
-import io.github.flegacy.flms.util.FLMS_ORANGE
-import io.github.flegacy.flms.util.FLMS_RED
-import io.github.flegacy.flms.util.FLMS_WHITE
-import io.github.flegacy.flms.util.FLMS_YELLOW
-import io.github.flegacy.flms.util.msgFormat
+import io.github.flegacy.flms.util.*
 import net.kyori.adventure.text.Component
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
@@ -218,6 +209,43 @@ class ItemLibrary(plugin: FLMS) {
 
         val CONFIRM_ICON = ItemStackBuilder(Material.LIME_WOOL)
             .name("${FLMS_GREEN}Confirm")
+            .build()
+            get() {
+                return field.clone()
+            }
+
+        val ADD_DROP_ICON = ItemStackBuilder(Material.HOPPER)
+            .name("${FLMS_YELLOW}Drag items here to add drops!")
+            .lore(
+                "",
+                "${FLMS_GRAY}And click on the items that",
+                "${FLMS_GRAY}appear above to remove them.",
+                "${FLMS_GRAY}There is a limit of ${FLMS_WHITE}28",
+                "${FLMS_GRAY}dropped items per block."
+            )
+            .build()
+            get() {
+                return field.clone()
+            }
+
+        val BLOCK_DROPS_CONFIG_ICON = ItemStackBuilder(Material.HOPPER)
+            .name("${FLMS_YELLOW}Edit Block Drops")
+            .lore("${FLMS_LIGHT_YELLOW}<bold>CLICK TO EDIT")
+            .build()
+            get() {
+                return field.clone()
+            }
+
+        
+        val BLOCK_DROPS_COMPRESS_ICON = ItemStackBuilder(Material.PISTON)
+            .name("${FLMS_YELLOW}Compress Items")
+            .lore(
+                "",
+                "${FLMS_GRAY}Combine stackable items into stacks",
+                "${FLMS_GRAY}of 64 for more drops space.",
+                "",
+                "${FLMS_LIGHT_YELLOW}CLICK TO COMPRESS"
+            )
             .build()
             get() {
                 return field.clone()

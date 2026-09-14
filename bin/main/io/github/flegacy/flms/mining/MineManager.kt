@@ -4,7 +4,7 @@ import io.github.flegacy.flms.FLMS
 import io.github.flegacy.flms.registry.RegisteredBlock
 import org.bukkit.Location
 import org.bukkit.entity.Player
-import java.util.UUID
+import java.util.*
 import kotlin.random.Random
 
 class MineManager(private val plugin: FLMS) {
@@ -22,7 +22,7 @@ class MineManager(private val plugin: FLMS) {
         return ids[player.uniqueId]!!
     }
 
-    fun startTask(player: Player, interval: UInt, location: Location, block: RegisteredBlock) {
+    fun startTask(player: Player, interval: Int, location: Location, block: RegisteredBlock) {
         require(!hasTask(player))
 
         val task = MineTask(plugin, this, player, interval, location, block)

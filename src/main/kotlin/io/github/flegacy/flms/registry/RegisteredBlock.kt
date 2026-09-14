@@ -1,8 +1,6 @@
 package io.github.flegacy.flms.registry
 
 import io.github.flegacy.flms.FLMS
-import net.kyori.adventure.text.logger.slf4j.ComponentLogger
-import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 
@@ -12,7 +10,14 @@ private const val POST_TYPE_KEY = "post-type"
 private const val NAME_KEY = "name"
 private const val DROPS_KEY = "drops"
 
-data class RegisteredBlock(val type: Material, val hardness: Float, val xp: Int, val postType: Material, val name: String, val drops: List<ItemStack>) {
+data class RegisteredBlock(
+    val type: Material,
+    val hardness: Float,
+    val xp: Int,
+    val postType: Material,
+    val name: String,
+    val drops: List<ItemStack>
+) {
 
     init {
         require(type.isBlock && !type.isAir)
@@ -39,7 +44,7 @@ data class RegisteredBlock(val type: Material, val hardness: Float, val xp: Int,
                 val postType = Material.valueOf((serialized[POST_TYPE_KEY] as String))
                 val name = serialized[NAME_KEY] as String
                 val drops = (serialized[DROPS_KEY] as List<Map<String, Any>>).map { ItemStack.deserialize(it) }
-                
+
                 val attemptedBlock = RegisteredBlock(blockType, hardness, xp, postType, name, drops)
                 return attemptedBlock
 
@@ -50,9 +55,6 @@ data class RegisteredBlock(val type: Material, val hardness: Float, val xp: Int,
             }
         }
     }
-
-
-
 
 
 }

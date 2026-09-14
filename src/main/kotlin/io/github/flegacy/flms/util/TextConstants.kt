@@ -5,23 +5,25 @@ import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer
 import org.bukkit.inventory.ItemStack
 
-const val FLMS_ORANGE = "<#ffa229>"
-const val FLMS_YELLOW = "<#ffcd61>"
-const val FLMS_LIGHT_YELLOW = "<#ffefcc>"
-const val FLMS_RED = "<#e0003c>"
-const val FLMS_LIGHT_RED = "<#ffd4d4>"
-const val FLMS_WHITE = "<#e4f0ef>"
-const val FLMS_GRAY = "<#898f8e>"
-const val FLMS_GREEN = "<#96ff61>"
-const val FLMS_LIGHT_GREEN = "<#ddffcc>"
+const val FLMS_ORANGE = "<#edae10>"
+const val FLMS_YELLOW = "<#fccd55>"
+const val FLMS_LIGHT_YELLOW = "<#fcf4e0>"
+const val FLMS_RED = "<#f94113>"
+const val FLMS_LIGHT_RED = "<#fcded6>"
+const val FLMS_WHITE = "<white>"
+const val FLMS_GRAY = "<grey>"
+const val FLMS_GREEN = "<#a1fc05>"
+const val FLMS_LIGHT_GREEN = "<#e9fcc7>"
 
 const val ERROR_COMMAND_CONSOLE = "You must be in-game to use this command."
 const val ERROR_INVENTORY_FULL = "Your inventory is too full to do this!"
 const val ERROR_EMPTY_HAND = "You need to hold an item to do this."
+const val ERROR_SEVERE_CONSOLE = "There was a severe error in the FLMS plugin. Please check the console!"
+const val ERROR_SAVING_DATA = "There was an error when saving data in the FLMS plugin. Some data may be lost from this session!"
+const val WARNING_CHANGING_FILE = "Please don't change this file. In-game commands should be used to configure the plugin."
 
 fun toPlainText(component: Component): String =
     PlainTextComponentSerializer.plainText().serialize(component)
-
 
 fun msgFormat(msg: String): Component = MiniMessage.miniMessage().deserialize(msg)
 

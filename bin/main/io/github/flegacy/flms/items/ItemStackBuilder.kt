@@ -5,7 +5,7 @@ import org.bukkit.Material
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 
-class ItemStackBuilder(type: Material)  {
+class ItemStackBuilder(type: Material) {
 
     private val item = ItemStack(type)
     private val tempMeta = item.itemMeta
@@ -48,9 +48,6 @@ class ItemStackBuilder(type: Material)  {
         item.itemMeta = tempMeta
         return item
     }
-
-
-    
 
 
 }

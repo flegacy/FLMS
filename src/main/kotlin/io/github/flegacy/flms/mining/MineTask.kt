@@ -58,25 +58,27 @@ class MineTask(
         plugin.server.pluginManager.callEvent(event)
         // TODO notify user of the nature of block drops. they should be able to configure it as normally thanks to the custom event
 
-        plugin.server.scheduler.runTaskLater(plugin, { task -> run {
+        plugin.server.scheduler.runTaskLater(plugin, { task ->
+            run {
 
-            if (event.isCancelled) {
-                if (plugin.configValues().boolean(Key.BLOCK_BREAK_FAILURE_SOUND))
-                    soundError(player)
-                val msg = plugin.configValues().string(Key.BLOCK_BREAK_DENIAL_MESSAGE)
-                val msgLocation = plugin.configValues().string(Key.BLOCK_BREAK_DENIAL_LOCATION)
+                if (event.isCancelled) {
+                    if (plugin.configValues().boolean(Key.BLOCK_BREAK_FAILURE_SOUND))
+                        soundError(player)
+                    val msg = plugin.configValues().string(Key.BLOCK_BREAK_DENIAL_MESSAGE)
+                    val msgLocation = plugin.configValues().string(Key.BLOCK_BREAK_DENIAL_LOCATION)
 
-                if (msgLocation.equals("chat", true))
-                    player.sendMessage(msgFormat(msg))
-                else if (msgLocation.equals("actionbar", true))
-                    player.sendActionBar(msgFormat(msg))
+                    if (msgLocation.equals("chat", true))
+                        player.sendMessage(msgFormat(msg))
+                    else if (msgLocation.equals("actionbar", true))
+                        player.sendActionBar(msgFormat(msg))
 
-                if (block.type.hardness == 0f)
-                    original.setType(originalType, false)
-            } else
-                fullBreak(original, originalType)
+                    if (block.type.hardness == 0f)
+                        original.setType(originalType, false)
+                } else
+                    fullBreak(original, originalType)
 
-        } }, 1)
+            }
+        }, 1)
 
         plugin.mineManager().wipeTag(player)
     }
@@ -100,12 +102,12 @@ class MineTask(
             it.experience = xp
             it.count = count
         }
-        
+
         // Go through all scenarios of this
         val next = plugin.registry().findBlock(block.postType) ?: return
         val newInterval = if (next.hardness == 0f) 0u else 3u
         if (!plugin.mineManager().hasTask(player) && next.type.hardness != 0f)
-            // TODO a NEW interval should be generated here
+        // TODO a NEW interval should be generated here
             plugin.mineManager().startTask(player, interval, location, next)
     }
 

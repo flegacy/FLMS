@@ -10,7 +10,7 @@ import io.papermc.paper.command.brigadier.Commands
 
 private const val BRANCH_LITERAL = "reload"
 
-class ReloadCommandBranch(private val plugin: FLMS): CommandBranch {
+class ReloadCommandBranch(private val plugin: FLMS) : CommandBranch {
     override fun buildCommandTree(): LiteralArgumentBuilder<CommandSourceStack> {
         return Commands.literal(BRANCH_LITERAL)
             .executes { ctx -> execute(ctx.source) }
@@ -18,7 +18,7 @@ class ReloadCommandBranch(private val plugin: FLMS): CommandBranch {
 
     private fun execute(source: CommandSourceStack): Int {
         val result = plugin.configValues().reload()
-        val msg = 
+        val msg =
             if (result)
                 prefixed("Sucessfully reloaded the config with no errors.")
             else
@@ -26,5 +26,5 @@ class ReloadCommandBranch(private val plugin: FLMS): CommandBranch {
         source.sender.sendMessage(msg)
         return Command.SINGLE_SUCCESS
 
-    } 
+    }
 }

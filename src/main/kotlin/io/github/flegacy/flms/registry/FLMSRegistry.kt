@@ -1,35 +1,39 @@
 package io.github.flegacy.flms.registry
 
 import io.github.flegacy.flms.FLMS
-import io.github.flegacy.flms.data.DataHandler
+import io.github.flegacy.flms.data.flmsUnwriteData
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import java.util.UUID
 
-class FLMSRegistry(private val plugin: FLMS, private val dataHandler: DataHandler) {
+const val SERIALIZED_HASTE_KEY = "haste"
+const val SERIALIZED_FATIGUE_KEY = "fatigue"
+
+class FLMSRegistry(private val plugin: FLMS) {
 
     private val blocks = mutableMapOf<Material, RegisteredBlock>()
     private val tools = mutableMapOf<UUID, RegisteredTool>()
     private val effects = mutableMapOf<UUID, EffectProfile>()
 
     init {
-        for ((key, value) in dataHandler.readBlocks()) 
+        for ((key, value) in plugin.blockData().read())
             blocks[key] = value
+        for ((key, value) in plugin.effectData().read())
+            effects[key] = value
     }
-
 
     fun register(block: RegisteredBlock) {
         blocks[block.type] = block
-        dataHandler.write(block)
+        plugin.blockData().write(block)
     }
 
     fun remove(block: RegisteredBlock) {
         blocks.remove(block.type)
-        dataHandler.unwrite(block)
+        plugin.blockData().unwrite(block)
     }
-    
+
     fun register(tool: RegisteredTool) {
-        tools[tool.toolID] =  tool
+        tools[tool.toolID] = tool
     }
 
     fun remove(tool: RegisteredTool) {
@@ -38,7 +42,7 @@ class FLMSRegistry(private val plugin: FLMS, private val dataHandler: DataHandle
 
     fun ensureEffectProfile(player: Player) {
         if (!effects.containsKey(player.uniqueId))
-            effects[player.uniqueId] = EffectProfile(0, 0)
+            effects[player.uniqueId] = EffectProfile(plugin, 0, 0)
     }
 
     fun findEffectProfile(player: Player): EffectProfile {
@@ -51,4 +55,13 @@ class FLMSRegistry(private val plugin: FLMS, private val dataHandler: DataHandle
     fun blocks(): MutableCollection<RegisteredBlock> {
         return blocks.values
     }
+
+    fun serializeEffectProfiles(): Map<String, Map<String, Int>> {
+        val serialized = mutableMapOf<String, Map<String, Int>>()
+        for ((key, value) in effects) {
+            serialized[key.toString()] = value.serialize()
+        }
+        return serialized
+    }
+
 }
